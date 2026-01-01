@@ -3,97 +3,105 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>FRESCI - Khoa Học Tự Do</title>
-<meta name="description" content="Nền tảng ôn thi mở: THPT, IELTS, TOEIC.">
+<title>IQO - Khoa Học Tự Do</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif:wght@400;600&display=swap" rel="stylesheet">
 <script src="data.js"></script>
 <style>
-:root{--bg:#f5f5f7;--card:#ffffff;--text:#1d1d1f;--glass:rgba(255,255,255,0.85);--border:rgba(0,0,0,0.08);--accent:#0071e3}
-.dark{--bg:#000000;--card:#1c1c1e;--text:#f5f5f7;--glass:rgba(28,28,30,0.85);--border:rgba(255,255,255,0.12);--accent:#0a84ff}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);height:100vh;overflow:hidden;transition:background 0.3s,color 0.3s}
-.glass{background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-.sidebar{width:280px;background:var(--card);border-right:1px solid var(--border);display:flex;flex-direction:column;transition:transform 0.3s cubic-bezier(0.4,0,0.2,1)}
-.card{background:var(--card);border-radius:18px;box-shadow:0 2px 8px rgba(0,0,0,0.04);border:1px solid var(--border)}
-.exam-font{font-family:'Noto Serif',serif;font-size:1.125rem;line-height:1.75}
-.btn{background:var(--accent);color:#fff;border-radius:99px;padding:8px 20px;font-weight:600;transition:0.2s}
-.btn:active{transform:scale(0.96)}
-.nav-item{padding:12px 16px;margin:4px 12px;border-radius:12px;cursor:pointer;display:flex;align-items:center;gap:12px;font-weight:500;color:var(--text);opacity:0.7;transition:0.2s}
-.nav-item:hover,.nav-item.active{background:rgba(0,113,227,0.1);opacity:1;color:var(--accent)}
-.q-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
-.q-cell{aspect-ratio:1;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;cursor:pointer;background:var(--bg);border:1px solid var(--border);transition:0.2s}
+:root{--bg:#f5f5f7;--sidebar:#fbfbfd;--card:#ffffff;--text:#1d1d1f;--glass:rgba(255,255,255,0.72);--border:rgba(0,0,0,0.06);--accent:#0071e3;--shadow:0 4px 12px rgba(0,0,0,0.03)}
+.dark{--bg:#1e1e1e;--sidebar:#2c2c2e;--card:#3a3a3c;--text:#f5f5f7;--glass:rgba(44,44,46,0.72);--border:rgba(255,255,255,0.1);--accent:#0a84ff;--shadow:0 4px 12px rgba(0,0,0,0.2)}
+body{font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;background:var(--bg);color:var(--text);height:100vh;overflow:hidden;transition:background 0.3s,color 0.3s}
+.glass-panel{background:var(--glass);backdrop-filter:blur(25px);-webkit-backdrop-filter:blur(25px);border-bottom:1px solid var(--border)}
+.sidebar{width:260px;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;transition:transform 0.3s cubic-bezier(0.25,1,0.5,1)}
+.card{background:var(--card);border-radius:16px;box-shadow:var(--shadow);border:1px solid var(--border);transition:transform 0.2s}
+.card:hover{transform:scale(1.005)}
+.exam-font{font-family:'Noto Serif',serif;font-size:1.1rem;line-height:1.7}
+.btn-apple{background:var(--accent);color:#fff;border-radius:8px;padding:6px 16px;font-size:13px;font-weight:500;transition:0.2s}
+.btn-apple:active{opacity:0.8;transform:scale(0.98)}
+.nav-item{padding:8px 12px;margin:2px 10px;border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text);transition:0.2s}
+.nav-item:hover{background:rgba(0,0,0,0.05)}
+.nav-item.active{background:rgba(0,113,227,0.12);color:var(--accent);font-weight:600}
+.q-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:10px}
+.q-cell{aspect-ratio:1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;cursor:pointer;background:var(--bg);border:1px solid var(--border);transition:0.2s}
+.q-cell:hover{background:var(--border)}
 .q-cell.done{background:var(--accent);color:#fff;border-color:var(--accent)}
 .q-cell.flagged{border-color:#ff9f0a;color:#ff9f0a;background:rgba(255,159,10,0.1)}
-.option-row{display:flex;padding:14px;border:1px solid var(--border);border-radius:14px;margin-top:10px;cursor:pointer;transition:0.2s;align-items:center}
+.option-row{display:flex;padding:12px;border:1px solid var(--border);border-radius:10px;margin-top:8px;cursor:pointer;transition:0.2s;align-items:center}
 .option-row:hover{background:var(--bg)}
-.option-row.selected{border-color:var(--accent);background:rgba(0,113,227,0.08)}
-.input-field{width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--bg);color:var(--text);margin-top:10px;font-family:'Inter',sans-serif}
-.input-field:focus{outline:none;border-color:var(--accent)}
+.option-row.selected{border-color:var(--accent);background:rgba(0,113,227,0.05)}
+.input-field{width:100%;padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);margin-top:8px;font-size:14px}
+.input-field:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,113,227,0.2)}
+.inline-img{display:inline-block;vertical-align:middle;margin:0 4px}
 .hidden{display:none!important}
 @media(max-width:768px){.sidebar{position:fixed;height:100%;z-index:50;transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}}
-::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(150,150,150,0.3);border-radius:4px}
+::-webkit-scrollbar{width:0px}
 </style>
 </head>
 <body>
 
 <div class="flex h-full">
 <aside class="sidebar" id="sidebar">
-<div class="p-6 flex items-center gap-3">
-<div class="w-9 h-9 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center text-white font-bold shadow-lg shadow-blue-500/30">F</div>
-<div><div class="font-bold text-lg tracking-tight">FRESCI</div><div class="text-xs opacity-60">Khoa Học Tự Do</div></div>
+<div class="h-12 flex items-center px-4 gap-2 mt-2">
+<div class="flex gap-2"><div class="w-3 h-3 rounded-full bg-red-500"></div><div class="w-3 h-3 rounded-full bg-yellow-500"></div><div class="w-3 h-3 rounded-full bg-green-500"></div></div>
 </div>
-<nav class="flex-1 overflow-y-auto py-2">
-<div class="px-6 mb-2 text-xs font-bold opacity-40 uppercase tracking-wider">Thư viện</div>
-<div class="nav-item active" onclick="switchTab('all')"><span>🏠</span> Tổng quan</div>
-<div class="nav-item" onclick="switchTab('thpt')"><span>🎓</span> THPT Quốc Gia</div>
-<div class="nav-item" onclick="switchTab('ielts')"><span>🌏</span> IELTS Online</div>
-<div class="nav-item" onclick="switchTab('toeic')"><span>💼</span> TOEIC ETS</div>
+<div class="px-4 mb-4"><div class="text-xl font-semibold tracking-tight">IQO</div><div class="text-xs opacity-50 font-medium">KHOA HỌC TỰ DO</div></div>
+<nav class="flex-1 overflow-y-auto">
+<div class="px-4 mb-1 text-[11px] font-bold opacity-40 uppercase">Thư viện</div>
+<div class="nav-item active" onclick="switchView('dashboard')"><span>􀎞</span> Tổng quan</div>
+<div class="nav-item" onclick="startExam('thpt-hoa-338')"><span>􀈌</span> Đề Hóa 0338</div>
 </nav>
 <div class="p-4 border-t border-[var(--border)]">
-<div class="flex items-center justify-between bg-[var(--bg)] p-3 rounded-xl cursor-pointer" onclick="toggleTheme()">
-<span class="text-sm font-medium">Giao diện tối</span>
-<div class="w-10 h-6 bg-gray-300 rounded-full relative transition duration-300 dark:bg-green-500"><div class="w-4 h-4 bg-white rounded-full absolute top-1 left-1 transition duration-300 transform dark:translate-x-4"></div></div>
+<div class="flex items-center justify-between bg-[var(--bg)] p-2 rounded-lg cursor-pointer" onclick="toggleTheme()">
+<span class="text-xs font-medium ml-1">Giao diện</span>
+<div class="w-8 h-4 bg-gray-300 rounded-full relative transition duration-300 dark:bg-green-500"><div class="w-3 h-3 bg-white rounded-full absolute top-0.5 left-0.5 transition duration-300 transform dark:translate-x-4"></div></div>
 </div>
 </div>
 </aside>
 <div class="fixed inset-0 bg-black/20 z-40 hidden md:hidden backdrop-blur-sm" id="overlay" onclick="toggleSidebar()"></div>
 
-<main class="flex-1 flex flex-col relative min-w-0">
-<header class="glass sticky top-0 z-30 h-16 flex items-center justify-between px-6 shrink-0">
-<div class="flex items-center gap-4">
-<button onclick="toggleSidebar()" class="md:hidden text-2xl opacity-70 hover:opacity-100">☰</button>
-<h2 id="page-title" class="font-semibold text-lg truncate">Thư viện đề thi</h2>
+<main class="flex-1 flex flex-col relative min-w-0 bg-[var(--bg)]">
+<header class="glass-panel sticky top-0 z-30 h-12 flex items-center justify-between px-4 shrink-0">
+<div class="flex items-center gap-3">
+<button onclick="toggleSidebar()" class="md:hidden text-xl opacity-70">􀆊</button>
+<h2 id="page-title" class="font-semibold text-sm opacity-80">Tổng quan</h2>
 </div>
 <div id="exam-controls" class="hidden flex items-center gap-3">
-<div class="hidden md:flex bg-[var(--bg)] rounded-lg p-1"><button onclick="adjustFont(-1)" class="w-8 h-8 flex items-center justify-center rounded hover:bg-[var(--card)]">A-</button><button onclick="adjustFont(1)" class="w-8 h-8 flex items-center justify-center rounded hover:bg-[var(--card)]">A+</button></div>
-<div class="bg-[var(--bg)] px-4 py-1.5 rounded-full font-mono font-bold text-[var(--accent)] border border-[var(--border)]" id="timer">00:00</div>
-<button onclick="submitExam()" class="btn text-sm shadow-lg shadow-blue-500/20">Nộp bài</button>
+<div class="text-xs font-mono font-medium opacity-60" id="timer">00:00</div>
+<button onclick="submitExam()" class="btn-apple">Nộp bài</button>
 </div>
 </header>
 
-<div id="dashboard-view" class="flex-1 overflow-y-auto p-6 md:p-10">
-<div class="max-w-6xl mx-auto">
-<div class="mb-10"><h1 class="text-4xl md:text-5xl font-bold mb-3 tracking-tight">Xin chào,</h1><p class="text-lg opacity-60">Hôm nay bạn muốn chinh phục đỉnh cao nào?</p></div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="exam-list"></div>
+<div id="dashboard-view" class="flex-1 overflow-y-auto p-8">
+<div class="max-w-4xl mx-auto">
+<div class="mb-8 text-center"><h1 class="text-3xl font-bold mb-2">Chào mừng trở lại.</h1><p class="text-sm opacity-60">Sẵn sàng chinh phục kiến thức hôm nay?</p></div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="card p-5 cursor-pointer hover:bg-[var(--card)]" onclick="startExam('thpt-hoa-338')">
+<div class="flex justify-between items-start mb-3"><span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-600 uppercase">Mới nhất</span><span class="text-xs opacity-40">50 phút</span></div>
+<h3 class="text-lg font-semibold mb-1">Hóa Học - Mã đề 0338</h3>
+<p class="text-xs opacity-50 mb-4">THPT QG 2025 • Chuẩn cấu trúc</p>
+<div class="text-xs font-medium text-[var(--accent)]">Làm bài ngay 􀆊</div>
+</div>
+</div>
 </div>
 </div>
 
 <div id="exam-view" class="hidden flex-1 flex h-full overflow-hidden">
 <div class="flex-1 overflow-y-auto p-4 md:p-8 scroll-smooth" id="question-container"></div>
-<div class="w-80 bg-[var(--card)] border-l border-[var(--border)] flex flex-col hidden lg:flex shrink-0">
-<div class="p-5 border-b border-[var(--border)] font-semibold">Mục lục câu hỏi</div>
-<div class="flex-1 overflow-y-auto p-5"><div class="q-grid" id="palette"></div></div>
+<div class="w-64 bg-[var(--sidebar)] border-l border-[var(--border)] flex flex-col hidden lg:flex shrink-0">
+<div class="p-3 border-b border-[var(--border)] text-xs font-semibold opacity-60 text-center">Mục lục</div>
+<div class="flex-1 overflow-y-auto"><div class="q-grid" id="palette"></div></div>
 </div>
 </div>
 </main>
 </div>
 
 <script>
-let currentExam=null,timerInterval,userAnswers={},flaggedQuestions=new Set(),fontSize=18;
+let currentExam=null,timerInterval,userAnswers={},flaggedQuestions=new Set();
 const $=id=>document.getElementById(id);
 
 function init(){
-    renderExamList(EXAM_DATA);
     if(localStorage.getItem('theme')==='dark') document.documentElement.classList.add('dark');
 }
 
@@ -107,30 +115,14 @@ function toggleSidebar(){
     $('overlay').classList.toggle('hidden');
 }
 
-function switchTab(cat){
-    document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
-    event.currentTarget.classList.add('active');
-    const filtered = cat==='all'?EXAM_DATA:EXAM_DATA.filter(e=>e.category===cat);
-    renderExamList(filtered);
-    $('dashboard-view').classList.remove('hidden');
-    $('exam-view').classList.add('hidden');
-    $('exam-controls').classList.add('hidden');
-    $('page-title').innerText="Thư viện đề thi";
-    if(window.innerWidth<768) toggleSidebar();
-}
-
-function renderExamList(data){
-    $('exam-list').innerHTML=data.map(e=>`
-        <div class="card p-6 cursor-pointer flex flex-col h-full hover:scale-[1.02] transition-transform" onclick="startExam('${e.id}')">
-            <div class="flex justify-between items-start mb-4">
-                <span class="text-[10px] font-bold px-2 py-1 rounded bg-blue-100 text-blue-700 uppercase tracking-wider">${e.category}</span>
-                <span class="text-xs opacity-50 font-medium">${e.time} phút</span>
-            </div>
-            <h3 class="text-xl font-bold mb-2 leading-tight">${e.title}</h3>
-            <p class="text-sm opacity-60 mb-6 flex-1">${e.subtitle}</p>
-            <div class="w-full btn text-center bg-[var(--bg)] text-[var(--text)] hover:bg-[var(--accent)] hover:text-white transition-colors">Bắt đầu làm bài</div>
-        </div>
-    `).join('');
+function switchView(view){
+    if(view==='dashboard'){
+        $('dashboard-view').classList.remove('hidden');
+        $('exam-view').classList.add('hidden');
+        $('exam-controls').classList.add('hidden');
+        $('page-title').innerText="Tổng quan";
+        clearInterval(timerInterval);
+    }
 }
 
 function startExam(id){
@@ -142,19 +134,18 @@ function startExam(id){
     $('page-title').innerText=currentExam.title;
     userAnswers={}; flaggedQuestions=new Set();
     renderQuestions(); renderPalette(); startTimer(currentExam.time*60);
+    if(window.innerWidth<768) toggleSidebar();
 }
 
 function renderQuestions(){
     $('question-container').innerHTML=currentExam.questions.map((q,idx)=>`
-        <div class="card p-6 md:p-8 mb-6 scroll-mt-24" id="q-${idx}">
-            <div class="flex justify-between items-start mb-4">
-                <div class="flex items-center gap-3">
-                    <span class="bg-[var(--bg)] px-3 py-1 rounded-lg text-xs font-bold border border-[var(--border)]">Câu ${q.id}</span>
-                    <button onclick="toggleFlag(${idx})" class="opacity-40 hover:opacity-100 transition text-lg" id="flag-btn-${idx}">🏳️</button>
-                </div>
+        <div class="card p-6 mb-4 scroll-mt-16" id="q-${idx}">
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-xs font-bold opacity-40 uppercase tracking-wide">Câu ${q.id}</span>
+                <button onclick="toggleFlag(${idx})" class="opacity-30 hover:opacity-100 transition" id="flag-btn-${idx}">􀋃</button>
             </div>
-            <div class="exam-font mb-6 text-[${fontSize}px]" style="font-size:${fontSize}px">${q.text}</div>
-            ${q.img?`<img src="${APP_CONFIG.imgPath}${q.img}" class="max-w-full rounded-lg mb-6 border border-[var(--border)] shadow-sm" loading="lazy">`:''}
+            <div class="exam-font mb-4">${q.text}</div>
+            ${q.img?`<img src="${APP_CONFIG.imgPath}${q.img}" class="max-w-full rounded-lg mb-4 border border-[var(--border)]">`:''}
             ${q.type==='choice'?renderChoices(q,idx):renderInput(q,idx)}
         </div>
     `).join('');
@@ -163,8 +154,8 @@ function renderQuestions(){
 function renderChoices(q,idx){
     return `<div class="grid grid-cols-1 gap-1">${q.options.map((opt,i)=>`
         <div class="option-row group" onclick="selectAnswer(${idx},${i},this)">
-            <div class="w-7 h-7 rounded-full border-2 border-gray-300 mr-4 flex items-center justify-center text-xs font-bold shrink-0 transition group-hover:border-[var(--accent)] ${userAnswers[idx]===i?'bg-[var(--accent)] border-[var(--accent)] text-white':''}">${String.fromCharCode(65+i)}</div>
-            <div class="text-[15px]">${opt}</div>
+            <div class="w-5 h-5 rounded-full border border-gray-400 mr-3 flex items-center justify-center text-[10px] font-bold shrink-0 transition group-hover:border-[var(--accent)] ${userAnswers[idx]===i?'bg-[var(--accent)] border-[var(--accent)] text-white':''}">${String.fromCharCode(65+i)}</div>
+            <div class="text-sm">${opt}</div>
         </div>`).join('')}</div>`;
 }
 
@@ -180,10 +171,10 @@ function selectAnswer(qIdx,optIdx,el){
     userAnswers[qIdx]=optIdx;
     Array.from(el.parentElement.children).forEach(c=>{
         c.classList.remove('selected');
-        c.querySelector('div:first-child').className='w-7 h-7 rounded-full border-2 border-gray-300 mr-4 flex items-center justify-center text-xs font-bold shrink-0 transition group-hover:border-[var(--accent)]';
+        c.querySelector('div:first-child').className='w-5 h-5 rounded-full border border-gray-400 mr-3 flex items-center justify-center text-[10px] font-bold shrink-0 transition group-hover:border-[var(--accent)]';
     });
     el.classList.add('selected');
-    el.querySelector('div:first-child').className='w-7 h-7 rounded-full border-2 border-[var(--accent)] bg-[var(--accent)] text-white mr-4 flex items-center justify-center text-xs font-bold shrink-0';
+    el.querySelector('div:first-child').className='w-5 h-5 rounded-full border border-[var(--accent)] bg-[var(--accent)] text-white mr-3 flex items-center justify-center text-[10px] font-bold shrink-0';
     $('cell-'+qIdx).classList.add('done');
 }
 
@@ -206,12 +197,6 @@ function toggleFlag(idx){
 
 function scrollToQuestion(idx){
     $('q-'+idx).scrollIntoView({behavior:'smooth',block:'center'});
-    if(window.innerWidth<1024) toggleSidebar(); 
-}
-
-function adjustFont(d){
-    fontSize=Math.max(14,Math.min(24,fontSize+d));
-    document.querySelectorAll('.exam-font').forEach(el=>el.style.fontSize=`${fontSize}px`);
 }
 
 function startTimer(sec){
@@ -220,7 +205,6 @@ function startTimer(sec){
     timerInterval=setInterval(()=>{
         const m=Math.floor(sec/60), s=sec%60;
         d.innerText=`${m<10?'0'+m:m}:${s<10?'0'+s:s}`;
-        if(sec<=300) d.classList.add('text-red-500','border-red-500');
         if(sec===0){clearInterval(timerInterval); submitExam();}
         sec--;
     },1000);
