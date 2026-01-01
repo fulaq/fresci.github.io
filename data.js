@@ -1,8 +1,8 @@
 const APP_CONFIG = {
     orgName: "KHOA HỌC TỰ DO",
-    appName: "FRESCI",
-    version: "3.0.1",
-    imgPath: "./assets/" 
+    appName: "IQO",
+    version: "5.0.0",
+    imgPath: "./assets/"
 };
 
 const EXAM_DATA = [
@@ -14,53 +14,33 @@ const EXAM_DATA = [
         time: 50,
         questions: [
             { id: 1, type: "choice", text: "Ở điều kiện thường, kim loại nào sau đây tồn tại ở thể lỏng?", options: ["Ag", "Hg", "Al", "Cu"] },
-            { id: 2, type: "choice", text: "Trong phức chất, số liên kết σ (sigma) tạo thành giữa một phối tử với nguyên tử trung tâm được gọi là dung lượng phối trí. Cấu tạo của phức chất [Cu(OH<sub>2</sub>)<sub>6</sub>]²⁺ được cho ở hình bên. Dung lượng phối trí của mỗi phối tử H<sub>2</sub>O là:", img: "1758686909321.jpeg", options: ["2", "6", "3", "1"] },
+            { id: 2, type: "choice", text: "Trong phức chất, số liên kết σ (sigma) tạo thành giữa một phối tử với nguyên tử trung tâm được gọi là dung lượng phối trí. Cấu tạo của phức chất [Cu(OH<sub>2</sub>)<sub>6</sub>]²⁺ hay [Cu(H<sub>2</sub>O)<sub>6</sub>]<sup>2+</sup> được cho ở hình bên. Dung lượng phối trí của mỗi phối tử H<sub>2</sub>O trong phức chất đã cho là:", img: "1758686909321.jpeg", options: ["2", "6", "3", "1"] },
             { id: 3, type: "choice", text: "Trong phòng thí nghiệm, dung dịch chất nào sau đây phù hợp để kiểm tra sự có mặt của ion Ca²⁺(aq)?", options: ["HCl", "NaNO<sub>3</sub>", "NaCl", "Na<sub>2</sub>CO<sub>3</sub>"] },
-            { id: 4, type: "choice", text: "Phản ứng điều chế ethanol từ ethene theo phương trình hóa học C<sub>2</sub>H<sub>4</sub> + H<sub>2</sub>O → C<sub>2</sub>H<sub>5</sub>OH là phản ứng:", img: "1758686910508.jpeg", options: ["Hydrogen hoá", "Trùng ngưng", "Ester hoá", "Hydrate hoá"] },
+            { id: 4, type: "choice", text: "Phản ứng điều chế ethanol từ ethene theo phương trình hóa học C<sub>2</sub>H<sub>4</sub> + H<sub>2</sub>O <img src='./assets/1758686910508.jpeg' class='inline-img h-4'> C<sub>2</sub>H<sub>5</sub>OH là phản ứng:", options: ["Hydrogen hoá", "Trùng ngưng", "Ester hoá", "Hydrate hoá"] },
             { id: 5, type: "choice", text: "Từ phổ khối lượng, phân tử khối của ester X được xác định là 88. Công thức phù hợp với X là:", options: ["CH<sub>3</sub>CH<sub>2</sub>OH", "CH<sub>3</sub>COOC<sub>2</sub>H<sub>5</sub>", "C<sub>3</sub>H<sub>7</sub>COOH", "HCOOC<sub>2</sub>H<sub>5</sub>"] },
             { id: 6, type: "choice", text: "Tên gọi theo danh pháp thay thế của chất có công thức cấu tạo CH<sub>3</sub> – NH<sub>2</sub> là:", options: ["Methanamine", "Ethylamine", "Methylamine", "Ethanamine"] },
-            { id: 7, type: "choice", text: "Trong phản ứng tách kim loại Cu từ CuSO₄ theo phương trình Zn + CuSO₄ → ZnSO₄ + Cu, phương pháp tách kim loại nào được áp dụng?", options: ["Nhiệt luyện", "Thủy luyện", "Điện phân nóng chảy", "Điện phân dung dịch"] },
-            { id: 8, type: "choice", text: "Cho các phát biểu về methylamine: (a) Quỳ tím hóa đỏ. (b) Phản ứng với HCl. (c) Không phản ứng FeCl3. (d) Phản ứng Cu(OH)2. Số phát biểu đúng là:", options: ["4", "3", "2", "1"] },
-            { id: 9, type: "choice", text: "Cho thế điện cực chuẩn Ag+/Ag (+0.799V) và Zn2+/Zn (-0.763V). Sức điện động chuẩn của pin Galvani được tính theo công thức nào?", img: "1758686913088.jpeg", options: ["E = Eo(+) - Eo(-)", "E = Eo(+) + Eo(-)", "E = -Eo(-) - Eo(+)", "E = Eo(-) - Eo(+)"] },
-            { id: 10, type: "choice", text: "Phát biểu nào sau đây về fructose không đúng?", options: ["CTPT C6H12O6", "Phản ứng Cu(OH)2", "Là monosaccharide", "Mất màu nước bromine"] },
-            { id: 11, type: "choice", text: "Cho phản ứng: H<sub>2</sub>(g) + I<sub>2</sub>(g) ⇌ 2HI(g). Biểu thức hằng số cân bằng Kc là:", options: ["A", "B", "C", "D"], img: "1758686923140.jpeg" },
+            { id: 7, type: "choice", text: "Trong phản ứng tách kim loại Cu từ CuSO₄ theo phương trình hoá học Zn(s) + CuSO₄(aq) → ZnSO₄(aq) + Cu(s), phương pháp tách kim loại nào sau đây đã được áp dụng?", options: ["Nhiệt luyện", "Thủy luyện", "Điện phân nóng chảy", "Điện phân dung dịch"] },
+            { id: 8, type: "choice", text: "Cho các phát biểu sau về tính chất của methylamine:<br>(a) Methylamine làm giấy quỳ tím ẩm hóa đỏ.<br>(b) Methylamine phản ứng được với HCl trong dung dịch.<br>(c) Methylamine không phản ứng được với dung dịch FeCl<sub>3</sub> ở điều kiện thường.<br>(d) Dung dịch methylamine phản ứng được với Cu(OH)<sub>2</sub>.<br>Số phát biểu đúng là:", options: ["4", "3", "2", "1"] },
+            { id: 9, type: "choice", text: "Cho thế điện cực chuẩn của Ag⁺/Ag và Zn²⁺/Zn lần lượt là <img src='./assets/1758686911465.jpeg' class='inline-img'> = +0,799 V và <img src='./assets/1758686912263.jpeg' class='inline-img'> = –0,763 V. Sức điện động chuẩn của pin Galvani (<img src='./assets/1758686913088.jpeg' class='inline-img'>) tạo bởi hai cặp oxi hóa – khử Ag⁺/Ag và Zn²⁺/Zn được tính theo công thức nào sau đây?", options: ["<img src='./assets/1758686913947.jpeg' class='h-6'>", "<img src='./assets/1758686916401.jpeg' class='h-6'>", "<img src='./assets/1758686918561.jpeg' class='h-6'>", "<img src='./assets/1758686920897.jpeg' class='h-6'>"] },
+            { id: 10, type: "choice", text: "Phát biểu nào sau đây về fructose không đúng?", options: ["Fructose có công thức phân tử C<sub>6</sub>H<sub>12</sub>O<sub>6</sub>.", "Fructose phản ứng được với Cu(OH)<sub>2</sub> trong môi trường kiềm ở điều kiện thường.", "Fructose thuộc loại monosaccharide.", "Fructose làm mất màu nước bromine ở điều kiện thường."] },
+            { id: 11, type: "choice", text: "Cho phản ứng thuận nghịch sau: H<sub>2</sub>(g) + I<sub>2</sub>(g) <img src='./assets/1758686923140.jpeg' class='inline-img'> 2HI(g). Biểu thức hằng số cân bằng Kc của phản ứng là:", options: ["<img src='./assets/1758686923863.jpeg' class='h-8'>", "<img src='./assets/1758686924583.jpeg' class='h-8'>", "<img src='./assets/1758686925471.jpeg' class='h-8'>", "<img src='./assets/1758686926291.jpeg' class='h-8'>"] },
             { id: 12, type: "choice", text: "Số lượng phối tử trong phức chất [Co(NH<sub>3</sub>)<sub>6</sub>]³⁺ là:", options: ["6", "7", "3", "1"] },
-            { id: 13, type: "choice", text: "Có bao nhiêu carbocation trong số các tiểu phân sau?", img: "1758686927081.jpeg", options: ["3", "2", "1", "4"] },
-            { id: 14, type: "choice", text: "Điền vào chỗ trống: '...(1)... là những hợp chất hữu cơ trong phân tử có nhóm hydroxy liên kết với nguyên tử carbon no'.", options: ["Ketone", "Phenol", "Aldehyde", "Alcohol"] },
-            { id: 15, type: "choice", text: "Biến thiên enthalpy chuẩn của phản ứng nhiệt phân MgCO3 là bao nhiêu?", img: "1758686930984.jpeg", options: ["-100.5 kJ", "-494.0 kJ", "+494.0 kJ", "+100.5 kJ"] },
-            { id: 16, type: "choice", text: "Cấu hình electron của nguyên tử Si (Z=14) ở trạng thái cơ bản là:", options: ["1s²2s²2p⁶3s²3p¹", "1s²2s²2p⁶3s³3p¹", "1s²2s²2p⁶3p²3s²", "1s²2s²2p⁶3s²3p²"] },
-            { id: 17, type: "choice", text: "<b>(Câu 17-18)</b> Bảo vệ vỏ tàu biển bằng Al/Zn. Phát biểu: Al hoặc Zn đóng vai trò là cathode nên bị ăn mòn trước. Đúng hay sai?", options: ["Đúng", "Sai"] },
-            { id: 18, type: "choice", text: "Có thể dùng khối kim loại Sodium (Na) thay thế Al/Zn để bảo vệ vỏ tàu không?", options: ["Được, vì Na khử mạnh hơn Fe", "Được, vì Na nhẹ", "Không, vì Na phản ứng nước", "Không, vì Na khử yếu hơn Fe"] },
-            { id: 19, type: "choice", text: "Tổng hợp tơ Capron. Chọn phát biểu SAI:", img: "1758686935044.jpeg", options: ["Monomer bị mở vòng", "Là tơ bán tổng hợp", "Bền với kiềm", "Là peptide"] },
-            { id: 22, type: "choice", text: "Điện phân dung dịch NaCl có màng ngăn. Chọn phát biểu đúng:", img: "1758686935847.jpeg", options: ["pH vùng cathode < 7", "Màng ngăn chống Cl2 tác dụng NaOH", "Anode thu được Na", "NaOH thu bằng phương pháp chiết"] },
-            { id: 24, type: "choice", text: "Chuẩn độ FeSO4 bằng KMnO4. Kết quả thí nghiệm phù hợp giả thuyết không?", img: "1758686936810.jpeg", options: ["Dụng cụ B là pipet", "Giá trị q là 7.9", "C2 là 0.109", "Kết quả phù hợp giả thuyết"] },
-            { id: 26, type: "choice", text: "Điều chế Benzoic Acid từ Toluene. Hiệu suất h% là bao nhiêu?", img: "1758686942679.jpeg", options: ["h = 60.9", "Toluene là chất oxi hóa", "Peak 1690 là O-H", "C6H5COO- là base"] },
+            { id: 13, type: "choice", text: "Trong các phản ứng hữu cơ thường có sự tạo thành các tiểu phân trung gian hoạt động như gốc tự do, carbanion, carbocation. Carbocation là ion mang điện tích dương trên nguyên tử carbon. Có bao nhiêu carbocation trong số các tiểu phân sau?", img: "1758686927081.jpeg", options: ["3", "2", "1", "4"] },
+            { id: 14, type: "choice", text: "“…(1)… là những hợp chất hữu cơ trong phân tử có nhóm hydroxy liên kết với nguyên tử carbon no”. Nội dung phù hợp trong chỗ trống (1) là:", options: ["Ketone", "Phenol", "Aldehyde", "Alcohol"] },
+            { id: 15, type: "choice", text: "Nhiệt tạo thành chuẩn (<img src='./assets/1758686930194.jpeg' class='inline-img'>) của MgCO<sub>3</sub>(s), MgO(s) và CO<sub>2</sub>(g) lần lượt là –1096,0 kJ·mol⁻¹; –602,0 kJ·mol⁻¹ và –393,5 kJ·mol⁻¹. Biến thiên enthalpy chuẩn (<img src='./assets/1758686930984.jpeg' class='inline-img'>) của phản ứng <img src='./assets/1758686931596.jpeg' class='inline-img'> là bao nhiêu?", options: ["–100,5 kJ", "–494,0 kJ", "+494,0 kJ", "+100,5 kJ"] },
+            { id: 16, type: "choice", text: "Silicon (Si) là chất bán dẫn quan trọng. Ở trạng thái cơ bản, cấu hình electron của nguyên tử Si (Z=14) là:", options: ["1s²2s²2p⁶3s²3p¹", "1s²2s²2p⁶3s³3p¹", "1s²2s²2p⁶3p²3s²", "1s²2s²2p⁶3s²3p²"] },
+            { id: 17, type: "choice", text: "<b>(Câu 17-18)</b> Các công trình bằng thép dễ bị ăn mòn điện hóa khi tiếp xúc với nước biển. Người ta gắn các khối Al hoặc Zn để bảo vệ.<br>Cho các phát biểu sau:<br>(a) Các khối Al hoặc Zn bảo vệ thép theo phương pháp điện hóa.<br>(b) Khi thép bị ăn mòn điện hóa, iron trong thép bị oxi hoá.<br>(c) Thép bị ăn mòn điện hóa mà không cần tiếp xúc với dung dịch chất điện li.<br>(d) Khi bảo vệ thép theo phương pháp điện hóa, Al hoặc Zn đóng vai trò là cathode nên bị ăn mòn trước.<br>Số phát biểu đúng là:", options: ["3", "2", "1", "4"] },
+            { id: 18, type: "choice", text: "Cho biết thế điện cực chuẩn của Na⁺/Na và Fe²⁺/Fe lần lượt là –2,713 V và –0,440 V. Một học sinh đề xuất dùng khối kim loại Sodium (Na) thay thế Al/Zn. Nhận định nào đúng?", options: ["(4) Không thể dùng Na do tính khử yếu hơn Fe", "(3) Không thể dùng Na do Na dễ phản ứng với nước biển", "(2) Có thể dùng Na do khối lượng riêng nhỏ", "(1) Sử dụng Na do tính khử mạnh hơn Fe"] },
+            { id: 19, type: "choice", text: "Tơ capron được tổng hợp từ caprolactam theo phương trình hóa học sau:<br><img src='./assets/1758686935044.jpeg' class='max-w-full'><br>Chọn các đáp án sai:", options: ["a) Trong phản ứng (1), các phân tử monomer bị mở vòng.", "b) Tơ capron là tơ bán tổng hợp.", "c) Tơ capron và nylon-6,6 đều bền với kiềm mạnh.", "d) Tơ capron là peptide."] },
+            { id: 22, type: "choice", text: "Điện phân dung dịch NaCl có màng ngăn:<br><img src='./assets/1758686935847.jpeg' class='max-w-full'><br>Chọn các đáp án đúng:", options: ["a) Dung dịch ở khu vực cathode có pH < 7.", "b) Màng ngăn giúp ngăn phản ứng giữa NaOH và Cl2.", "c) Tại anode, khí Cl2 thu được do sự oxi hóa ion chloride.", "d) NaOH rắn thu được bằng phương pháp chiết."] },
+            { id: 24, type: "choice", text: "Chuẩn độ FeSO<sub>4</sub> bằng KMnO<sub>4</sub>. Giả thuyết: 'Khi để lâu, nồng độ FeSO<sub>4</sub> giảm'.<br><img src='./assets/1758686936810.jpeg' class='max-w-full'><br>Công thức tính q%: <img src='./assets/1758686937427.jpeg' class='inline-img'><br>Chọn các đáp án đúng:", options: ["a) Dụng cụ (B) là pipet.", "b) Giá trị của q là 7,9.", "c) Giá trị của C2 là 0,109.", "d) Kết quả phù hợp với giả thuyết."] },
+            { id: 26, type: "choice", text: "Điều chế benzoic acid từ toluene:<br><img src='./assets/1758686942679.jpeg' class='max-w-full'><br>Phổ hồng ngoại:<br><img src='./assets/1758686943432.jpeg' class='max-w-full'><br>Chọn các đáp án đúng:", options: ["a) Giá trị của h là 60,9.", "b) Toluene đóng vai trò là chất oxi hóa.", "c) Peak 1690 cm⁻¹ đặc trưng cho liên kết O–H.", "d) Anion C6H5COO⁻ là một base."] },
             { id: 28, type: "input", text: "Có bao nhiêu công thức cấu tạo của aldehyde ứng với công thức phân tử C<sub>5</sub>H<sub>10</sub>O?", placeholder: "Nhập số..." },
             { id: 29, type: "input", text: "Trong phân tử peptide cho dưới đây có bao nhiêu liên kết peptide?", placeholder: "Nhập số..." },
             { id: 30, type: "input", text: "Phần trăm khối lượng carbon trong benzene là a%. Giá trị của a là bao nhiêu? (Làm tròn đến hàng phần mười)", placeholder: "Nhập giá trị..." },
-            { id: 31, type: "input", text: "Tính giá trị k trong bài toán nhiệt đốt cháy khí gas G?", img: "1758686949626.jpeg", placeholder: "Nhập giá trị..." },
-            { id: 32, type: "input", text: "Luyện thép từ gang. Phần trăm khối lượng carbon trong thép thu được là w%. Giá trị của w là bao nhiêu?", placeholder: "Nhập giá trị..." },
-            { id: 33, type: "input", text: "Oleum Z (H2SO4.nSO3). Phần trăm khối lượng SO3 trong Z là b%. Xác định giá trị của b.", placeholder: "Nhập giá trị..." }
-        ]
-    },
-    {
-        id: "ielts-full-1",
-        category: "ielts",
-        title: "IELTS Academic Full Test 01",
-        subtitle: "Cambridge 18 • Reading & Listening",
-        time: 60,
-        questions: [
-            { id: 1, type: "choice", text: "The main purpose of the passage is to:", options: ["Describe a process", "Argue a point", "Compare theories", "Refute a claim"] }
-        ]
-    },
-    {
-        id: "toeic-ets-2024",
-        category: "toeic",
-        title: "TOEIC Listening & Reading",
-        subtitle: "ETS 2024 • Test 1",
-        time: 120,
-        questions: [
-            { id: 1, type: "choice", text: "Look at the picture. Select the best description.", options: ["(A) They are shaking hands.", "(B) They are walking together.", "(C) They are opening a door.", "(D) They are wearing hats."] }
+            { id: 31, type: "input", text: "Lượng nhiệt tỏa ra khi đốt cháy hoàn toàn 1 gam nhiên liệu...<br><img src='./assets/1758686949626.jpeg' class='max-w-full'><br>Đặt <img src='./assets/1758686950313.jpeg' class='inline-img'>, giá trị của k bằng bao nhiêu?", placeholder: "Nhập giá trị..." },
+            { id: 32, type: "input", text: "Luyện thép từ gang... Gang chứa 4,60% C. Thổi 2,88 tấn O2 vào 45,0 tấn gang... Phần trăm khối lượng carbon trong thép thu được là w%. Giá trị của w là bao nhiêu?", placeholder: "Nhập giá trị..." },
+            { id: 33, type: "input", text: "Oleum Z (H<sub>2</sub>SO<sub>4</sub>·nSO<sub>3</sub>) được tạo thành khi cho 100 kg dung dịch H<sub>2</sub>SO<sub>4</sub> 98% hấp thụ hoàn toàn 25 kg SO<sub>3</sub>. Phần trăm khối lượng SO<sub>3</sub> trong Z là b%. Xác định giá trị của b.", placeholder: "Nhập giá trị..." }
         ]
     }
 ];
