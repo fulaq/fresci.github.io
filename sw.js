@@ -1,10 +1,10 @@
-const CACHE_NAME = 'fresci-core-v3';
+const CACHE_NAME = 'iqo-core-v5';
 const ASSETS = [
     '/',
     '/index.html',
     '/data.js',
     'https://cdn.tailwindcss.com',
-    'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif:wght@400;700&display=swap'
+    'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif:wght@400;600&display=swap'
 ];
 
 self.addEventListener('install', e => {
