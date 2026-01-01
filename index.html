@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>FRESCI - Khoa Học Tự Do</title>
+<meta name="description" content="Nền tảng ôn thi mở: THPT, IELTS, TOEIC.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet">
+<script src="data.js"></script>
+<style>
+:root{--bg:#f5f5f7;--card:#ffffff;--text:#1d1d1f;--glass:rgba(255,255,255,0.85);--border:rgba(0,0,0,0.08);--accent:#0071e3}
+.dark{--bg:#000000;--card:#1c1c1e;--text:#f5f5f7;--glass:rgba(28,28,30,0.85);--border:rgba(255,255,255,0.12);--accent:#0a84ff}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);height:100vh;overflow:hidden;transition:background 0.3s,color 0.3s}
+.glass{background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.sidebar{width:280px;background:var(--card);border-right:1px solid var(--border);display:flex;flex-direction:column;transition:transform 0.3s cubic-bezier(0.4,0,0.2,1)}
+.card{background:var(--card);border-radius:18px;box-shadow:0 2px 8px rgba(0,0,0,0.04);border:1px solid var(--border)}
+.exam-font{font-family:'Noto Serif',serif;font-size:1.125rem;line-height:1.75}
+.btn{background:var(--accent);color:#fff;border-radius:99px;padding:8px 20px;font-weight:600;transition:0.2s}
+.btn:active{transform:scale(0.96)}
+.nav-item{padding:12px 16px;margin:4px 12px;border-radius:12px;cursor:pointer;display:flex;align-items:center;gap:12px;font-weight:500;color:var(--text);opacity:0.7;transition:0.2s}
+.nav-item:hover,.nav-item.active{background:rgba(0,113,227,0.1);opacity:1;color:var(--accent)}
+.q-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.q-cell{aspect-ratio:1;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;cursor:pointer;background:var(--bg);border:1px solid var(--border);transition:0.2s}
+.q-cell.done{background:var(--accent);color:#fff;border-color:var(--accent)}
+.q-cell.flagged{border-color:#ff9f0a;color:#ff9f0a;background:rgba(255,159,10,0.1)}
+.option-row{display:flex;padding:14px;border:1px solid var(--border);border-radius:14px;margin-top:10px;cursor:pointer;transition:0.2s;align-items:center}
+.option-row:hover{background:var(--bg)}
+.option-row.selected{border-color:var(--accent);background:rgba(0,113,227,0.08)}
+.input-field{width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--bg);color:var(--text);margin-top:10px;font-family:'Inter',sans-serif}
+.input-field:focus{outline:none;border-color:var(--accent)}
+.hidden{display:none!important}
+@media(max-width:768px){.sidebar{position:fixed;height:100%;z-index:50;transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(150,150,150,0.3);border-radius:4px}
+</style>
+</head>
+<body>
+
+<div class="flex h-full">
+<aside class="sidebar" id="sidebar">
+<div class="p-6 flex items-center gap-3">
+<div class="w-9 h-9 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center text-white font-bold shadow-lg shadow-blue-500/30">F</div>
+<div><div class="font-bold text-lg tracking-tight">FRESCI</div><div class="text-xs opacity-60">Khoa Học Tự Do</div></div>
+</div>
+<nav class="flex-1 overflow-y-auto py-2">
+<div class="px-6 mb-2 text-xs font-bold opacity-40 uppercase tracking-wider">Thư viện</div>
+<div class="nav-item active" onclick="switchTab('all')"><span>🏠</span> Tổng quan</div>
+<div class="nav-item" onclick="switchTab('thpt')"><span>🎓</span> THPT Quốc Gia</div>
+<div class="nav-item" onclick="switchTab('ielts')"><span>🌏</span> IELTS Online</div>
+<div class="nav-item" onclick="switchTab('toeic')"><span>💼</span> TOEIC ETS</div>
+</nav>
+<div class="p-4 border-t border-[var(--border)]">
+<div class="flex items-center justify-between bg-[var(--bg)] p-3 rounded-xl cursor-pointer" onclick="toggleTheme()">
+<span class="text-sm font-medium">Giao diện tối</span>
+<div class="w-10 h-6 bg-gray-300 rounded-full relative transition duration-300 dark:bg-green-500"><div class="w-4 h-4 bg-white rounded-full absolute top-1 left-1 transition duration-300 transform dark:translate-x-4"></div></div>
+</div>
+</div>
+</aside>
+<div class="fixed inset-0 bg-black/20 z-40 hidden md:hidden backdrop-blur-sm" id="overlay" onclick="toggleSidebar()"></div>
+
+<main class="flex-1 flex flex-col relative min-w-0">
+<header class="glass sticky top-0 z-30 h-16 flex items-center justify-between px-6 shrink-0">
+<div class="flex items-center gap-4">
+<button onclick="toggleSidebar()" class="md:hidden text-2xl opacity-70 hover:opacity-100">☰</button>
+<h2 id="page-title" class="font-semibold text-lg truncate">Thư viện đề thi</h2>
+</div>
+<div id="exam-controls" class="hidden flex items-center gap-3">
+<div class="hidden md:flex bg-[var(--bg)] rounded-lg p-1"><button onclick="adjustFont(-1)" class="w-8 h-8 flex items-center justify-center rounded hover:bg-[var(--card)]">A-</button><button onclick="adjustFont(1)" class="w-8 h-8 flex items-center justify-center rounded hover:bg-[var(--card)]">A+</button></div>
+<div class="bg-[var(--bg)] px-4 py-1.5 rounded-full font-mono font-bold text-[var(--accent)] border border-[var(--border)]" id="timer">00:00</div>
+<button onclick="submitExam()" class="btn text-sm shadow-lg shadow-blue-500/20">Nộp bài</button>
+</div>
+</header>
+
+<div id="dashboard-view" class="flex-1 overflow-y-auto p-6 md:p-10">
+<div class="max-w-6xl mx-auto">
+<div class="mb-10"><h1 class="text-4xl md:text-5xl font-bold mb-3 tracking-tight">Xin chào,</h1><p class="text-lg opacity-60">Hôm nay bạn muốn chinh phục đỉnh cao nào?</p></div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="exam-list"></div>
+</div>
+</div>
+
+<div id="exam-view" class="hidden flex-1 flex h-full overflow-hidden">
+<div class="flex-1 overflow-y-auto p-4 md:p-8 scroll-smooth" id="question-container"></div>
+<div class="w-80 bg-[var(--card)] border-l border-[var(--border)] flex flex-col hidden lg:flex shrink-0">
+<div class="p-5 border-b border-[var(--border)] font-semibold">Mục lục câu hỏi</div>
+<div class="flex-1 overflow-y-auto p-5"><div class="q-grid" id="palette"></div></div>
+</div>
+</div>
+</main>
+</div>
+
+<script>
+let currentExam=null,timerInterval,userAnswers={},flaggedQuestions=new Set(),fontSize=18;
+const $=id=>document.getElementById(id);
+
+function init(){
+    renderExamList(EXAM_DATA);
+    if(localStorage.getItem('theme')==='dark') document.documentElement.classList.add('dark');
+}
+
+function toggleTheme(){
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme',document.documentElement.classList.contains('dark')?'dark':'light');
+}
+
+function toggleSidebar(){
+    $('sidebar').classList.toggle('open');
+    $('overlay').classList.toggle('hidden');
+}
+
+function switchTab(cat){
+    document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    const filtered = cat==='all'?EXAM_DATA:EXAM_DATA.filter(e=>e.category===cat);
+    renderExamList(filtered);
+    $('dashboard-view').classList.remove('hidden');
+    $('exam-view').classList.add('hidden');
+    $('exam-controls').classList.add('hidden');
+    $('page-title').innerText="Thư viện đề thi";
+    if(window.innerWidth<768) toggleSidebar();
+}
+
+function renderExamList(data){
+    $('exam-list').innerHTML=data.map(e=>`
+        <div class="card p-6 cursor-pointer flex flex-col h-full hover:scale-[1.02] transition-transform" onclick="startExam('${e.id}')">
+            <div class="flex justify-between items-start mb-4">
+                <span class="text-[10px] font-bold px-2 py-1 rounded bg-blue-100 text-blue-700 uppercase tracking-wider">${e.category}</span>
+                <span class="text-xs opacity-50 font-medium">${e.time} phút</span>
+            </div>
+            <h3 class="text-xl font-bold mb-2 leading-tight">${e.title}</h3>
+            <p class="text-sm opacity-60 mb-6 flex-1">${e.subtitle}</p>
+            <div class="w-full btn text-center bg-[var(--bg)] text-[var(--text)] hover:bg-[var(--accent)] hover:text-white transition-colors">Bắt đầu làm bài</div>
+        </div>
+    `).join('');
+}
+
+function startExam(id){
+    currentExam=EXAM_DATA.find(e=>e.id===id);
+    $('dashboard-view').classList.add('hidden');
+    $('exam-view').classList.remove('hidden');
+    $('exam-view').classList.add('flex');
+    $('exam-controls').classList.remove('hidden');
+    $('page-title').innerText=currentExam.title;
+    userAnswers={}; flaggedQuestions=new Set();
+    renderQuestions(); renderPalette(); startTimer(currentExam.time*60);
+}
+
+function renderQuestions(){
+    $('question-container').innerHTML=currentExam.questions.map((q,idx)=>`
+        <div class="card p-6 md:p-8 mb-6 scroll-mt-24" id="q-${idx}">
+            <div class="flex justify-between items-start mb-4">
+                <div class="flex items-center gap-3">
+                    <span class="bg-[var(--bg)] px-3 py-1 rounded-lg text-xs font-bold border border-[var(--border)]">Câu ${q.id}</span>
+                    <button onclick="toggleFlag(${idx})" class="opacity-40 hover:opacity-100 transition text-lg" id="flag-btn-${idx}">🏳️</button>
+                </div>
+            </div>
+            <div class="exam-font mb-6 text-[${fontSize}px]" style="font-size:${fontSize}px">${q.text}</div>
+            ${q.img?`<img src="${APP_CONFIG.imgPath}${q.img}" class="max-w-full rounded-lg mb-6 border border-[var(--border)] shadow-sm" loading="lazy">`:''}
+            ${q.type==='choice'?renderChoices(q,idx):renderInput(q,idx)}
+        </div>
+    `).join('');
+}
+
+function renderChoices(q,idx){
+    return `<div class="grid grid-cols-1 gap-1">${q.options.map((opt,i)=>`
+        <div class="option-row group" onclick="selectAnswer(${idx},${i},this)">
+            <div class="w-7 h-7 rounded-full border-2 border-gray-300 mr-4 flex items-center justify-center text-xs font-bold shrink-0 transition group-hover:border-[var(--accent)] ${userAnswers[idx]===i?'bg-[var(--accent)] border-[var(--accent)] text-white':''}">${String.fromCharCode(65+i)}</div>
+            <div class="text-[15px]">${opt}</div>
+        </div>`).join('')}</div>`;
+}
+
+function renderInput(q,idx){
+    return `<input type="text" class="input-field" placeholder="${q.placeholder}" oninput="inputAnswer(${idx},this.value)">`;
+}
+
+function renderPalette(){
+    $('palette').innerHTML=currentExam.questions.map((_,idx)=>`<div class="q-cell" id="cell-${idx}" onclick="scrollToQuestion(${idx})">${idx+1}</div>`).join('');
+}
+
+function selectAnswer(qIdx,optIdx,el){
+    userAnswers[qIdx]=optIdx;
+    Array.from(el.parentElement.children).forEach(c=>{
+        c.classList.remove('selected');
+        c.querySelector('div:first-child').className='w-7 h-7 rounded-full border-2 border-gray-300 mr-4 flex items-center justify-center text-xs font-bold shrink-0 transition group-hover:border-[var(--accent)]';
+    });
+    el.classList.add('selected');
+    el.querySelector('div:first-child').className='w-7 h-7 rounded-full border-2 border-[var(--accent)] bg-[var(--accent)] text-white mr-4 flex items-center justify-center text-xs font-bold shrink-0';
+    $('cell-'+qIdx).classList.add('done');
+}
+
+function inputAnswer(qIdx,val){
+    if(val.trim()){userAnswers[qIdx]=val; $('cell-'+qIdx).classList.add('done');}
+    else{delete userAnswers[qIdx]; $('cell-'+qIdx).classList.remove('done');}
+}
+
+function toggleFlag(idx){
+    if(flaggedQuestions.has(idx)){
+        flaggedQuestions.delete(idx);
+        $('flag-btn-'+idx).classList.remove('text-yellow-500','opacity-100');
+        $('cell-'+idx).classList.remove('flagged');
+    }else{
+        flaggedQuestions.add(idx);
+        $('flag-btn-'+idx).classList.add('text-yellow-500','opacity-100');
+        $('cell-'+idx).classList.add('flagged');
+    }
+}
+
+function scrollToQuestion(idx){
+    $('q-'+idx).scrollIntoView({behavior:'smooth',block:'center'});
+    if(window.innerWidth<1024) toggleSidebar(); 
+}
+
+function adjustFont(d){
+    fontSize=Math.max(14,Math.min(24,fontSize+d));
+    document.querySelectorAll('.exam-font').forEach(el=>el.style.fontSize=`${fontSize}px`);
+}
+
+function startTimer(sec){
+    clearInterval(timerInterval);
+    const d=$('timer');
+    timerInterval=setInterval(()=>{
+        const m=Math.floor(sec/60), s=sec%60;
+        d.innerText=`${m<10?'0'+m:m}:${s<10?'0'+s:s}`;
+        if(sec<=300) d.classList.add('text-red-500','border-red-500');
+        if(sec===0){clearInterval(timerInterval); submitExam();}
+        sec--;
+    },1000);
+}
+
+function submitExam(){
+    if(confirm('Nộp bài ngay?')){
+        clearInterval(timerInterval);
+        alert(`Hoàn thành! Bạn đã làm ${Object.keys(userAnswers).length}/${currentExam.questions.length} câu.`);
+        location.reload();
+    }
+}
+
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+init();
+</script>
+</body>
+</html>
