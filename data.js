@@ -1,7 +1,7 @@
 const APP_CONFIG = {
     orgName: "KHOA HỌC TỰ DO",
     appName: "IQO",
-    version: "5.0.0",
+    version: "6.0.0",
     imgPath: "./assets/"
 };
 
@@ -13,187 +13,34 @@ const EXAM_DATA = [
         subtitle: "THPT QG 2025 • Chuẩn cấu trúc Mới",
         time: 50,
         questions: [
-            // --- PHẦN 1: TRẮC NGHIỆM NHIỀU LỰA CHỌN ---
-            { 
-                id: 1, type: "choice", 
-                text: "Ở điều kiện thường, kim loại nào sau đây tồn tại ở thể lỏng?", 
-                options: ["Ag.", "Hg.", "Al.", "Cu."],
-                correct: 1 // B (Index bắt đầu từ 0)
-            },
-            { 
-                id: 2, type: "choice", 
-                text: "Trong phức chất, số liên kết σ (sigma) tạo thành giữa một phối tử với nguyên tử trung tâm được gọi là dung lượng phối trí của phối tử đó. Cấu tạo của phức chất [Cu(OH<sub>2</sub>)<sub>6</sub>]²⁺ hay [Cu(H<sub>2</sub>O)<sub>6</sub>]<sup>2+</sup> được cho ở hình bên. Dung lượng phối trí của mỗi phối tử H<sub>2</sub>O trong phức chất đã cho là<br> <img src='./assets/1758686909321.jpeg' class='block-img'>", 
-                options: ["2.", "6.", "3.", "1."],
-                correct: 3 // D (Giả định, bạn cần check lại đáp án đúng nếu cần chính xác logic hóa học)
-            },
-            { 
-                id: 3, type: "choice", 
-                text: "Trong phòng thí nghiệm, dung dịch chất nào sau đây phù hợp để kiểm tra sự có mặt của ion Ca²⁺(aq)?", 
-                options: ["HCl.", "NaNO<sub>3</sub>.", "NaCl.", "Na<sub>2</sub>CO<sub>3</sub>."],
-                correct: 3 
-            },
-            { 
-                id: 4, type: "choice", 
-                text: "Phản ứng điều chế ethanol từ ethene theo phương trình hóa học C<sub>2</sub>H<sub>4</sub> + H<sub>2</sub>O <img src='./assets/1758686910508.jpeg' class='inline-img'> C<sub>2</sub>H<sub>5</sub>OH  là phản ứng", 
-                options: ["hydrogen hoá.", "trùng ngưng.", "ester hoá.", "hydrate hoá."],
-                correct: 3
-            },
-            { 
-                id: 5, type: "choice", 
-                text: "Từ phổ khối lượng, phân tử khối của ester X được xác định là 88. Công thức phù hợp với X là", 
-                options: ["CH<sub>3</sub>CH<sub>2</sub>OH.", "CH<sub>3</sub>COOC<sub>2</sub>H<sub>5</sub>.", "C<sub>3</sub>H<sub>7</sub>COOH.", "HCOOC<sub>2</sub>H<sub>5</sub>."],
-                correct: 1
-            },
-            { 
-                id: 6, type: "choice", 
-                text: "Tên gọi theo danh pháp thay thế của chất có công thức cấu tạo CH<sub>3</sub> – NH<sub>2</sub> là", 
-                options: ["methanamine.", "ethylamine.", "methylamine.", "ethanamine."],
-                correct: 0
-            },
-            { 
-                id: 7, type: "choice", 
-                text: "Trong phản ứng tách kim loại Cu từ CuSO₄ theo phương trình hoá học Zn(s) + CuSO₄(aq) → ZnSO₄(aq) + Cu(s), phương pháp tách kim loại nào sau đây đã được áp dụng?", 
-                options: ["Nhiệt luyện.", "Thủy luyện.", "Điện phân nóng chảy.", "Điện phân dung dịch."],
-                correct: 1
-            },
-            { 
-                id: 8, type: "choice", 
-                text: "Cho các phát biểu sau về tính chất của methylamine: <br>(a) Methylamine làm giấy quỳ tím ẩm hóa đỏ. <br>(b) Methylamine phản ứng được với HCl trong dung dịch. <br>(c) Methylamine không phản ứng được với dung dịch FeCl<sub>3</sub> ở điều kiện thường. <br>(d) Dung dịch methylamine phản ứng được với Cu(OH)<sub>2</sub>.<br>Số phát biểu đúng là", 
-                options: ["4.", "3.", "2.", "1."],
-                correct: 2
-            },
-            { 
-                id: 9, type: "choice", 
-                text: "Cho thế điện cực chuẩn của Ag⁺/Ag và Zn<sup>2</sup>⁺/Zn lần lượt là <img src='./assets/1758686911465.jpeg' class='inline-img'> = +0,799 V và <img src='./assets/1758686912263.jpeg' class='inline-img'> = –0,763 V. Sức điện động chuẩn của pin Galvani (<img src='./assets/1758686913088.jpeg' class='inline-img'>) tạo bởi hai cặp oxi hóa – khử Ag⁺/Ag và Zn<sup>2</sup>⁺/Zn được tính theo công thức nào sau đây?", 
-                options: [
-                    "<img src='./assets/1758686913947.jpeg' class='h-8'>", 
-                    "<img src='./assets/1758686916401.jpeg' class='h-8'>", 
-                    "<img src='./assets/1758686918561.jpeg' class='h-8'>", 
-                    "<img src='./assets/1758686920897.jpeg' class='h-8'>"
-                ],
-                correct: 0
-            },
-            { 
-                id: 10, type: "choice", 
-                text: "Phát biểu nào sau đây về fructose không đúng?", 
-                options: ["Fructose có công thức phân tử C<sub>6</sub>H<sub>12</sub>O<sub>6</sub>.", "Fructose phản ứng được với Cu(OH)<sub>2</sub> trong môi trường kiềm ở điều kiện thường.", "Fructose thuộc loại monosaccharide.", "Fructose làm mất màu nước bromine ở điều kiện thường."],
-                correct: 3
-            },
-            { 
-                id: 11, type: "choice", 
-                text: "Cho phản ứng thuận nghịch sau: H<sub>2</sub>(g) + I<sub>2</sub> (g) <img src='./assets/1758686923140.jpeg' class='inline-img'> 2HI(g). Ở trạng thái cân bằng, nồng độ (mol·L⁻¹) của H₂(g), I₂(g) và HI(g) được kí hiệu lần lượt là [H<sub>2</sub>], [I<sub>2</sub>] và [HI]. Biểu thức hằng số cân bằng Kc của phản ứng là", 
-                options: [
-                    "<img src='./assets/1758686923863.jpeg' class='h-10'>", 
-                    "<img src='./assets/1758686924583.jpeg' class='h-10'>", 
-                    "<img src='./assets/1758686925471.jpeg' class='h-10'>", 
-                    "<img src='./assets/1758686926291.jpeg' class='h-10'>"
-                ],
-                correct: 1
-            },
-            { 
-                id: 12, type: "choice", 
-                text: "Số lượng phối tử trong phức chất [Co(NH<sub>3</sub>)<sub> 6</sub>]<sup>3</sup>⁺ là", 
-                options: ["6.", "7.", "3.", "1."],
-                correct: 0
-            },
-            { 
-                id: 13, type: "choice", 
-                text: "Trong các phản ứng hữu cơ thường có sự tạo thành các tiểu phân trung gian hoạt động như gốc tự do, carbanion, carbocation. Carbocation là ion mang điện tích dương trên nguyên tử carbon. Có bao nhiêu carbocation trong số các tiểu phân<br> <img src='./assets/1758686927081.jpeg' class='inline-img'>, <img src='./assets/1758686927891.jpeg' class='inline-img'>, <img src='./assets/1758686928731.jpeg' class='inline-img'>và <img src='./assets/1758686929466.jpeg' class='inline-img'>?", 
-                options: ["3.", "2.", "1.", "4."],
-                correct: 1
-            },
-            { 
-                id: 14, type: "choice", 
-                text: "“…(1)… là những hợp chất hữu cơ trong phân tử có nhóm hydroxy liên kết với nguyên tử carbon no”. <br>Nội dung phù hợp trong chỗ trống (1) là", 
-                options: ["Ketone.", "Phenol.", "Aldehyde.", "Alcohol."],
-                correct: 3
-            },
-            { 
-                id: 15, type: "choice", 
-                text: "Nhiệt tạo thành chuẩn (<img src='./assets/1758686930194.jpeg' class='inline-img'>) của MgCO<sub>3</sub>(s), MgO(s) và CO<sub>2</sub>(g) lần lượt là –1096,0 kJ·mol⁻¹; –602,0 kJ·mol⁻¹ và –393,5 kJ·mol⁻¹. <br>Biến thiên enthalpy chuẩn (<img src='./assets/1758686930984.jpeg' class='inline-img'>) của phản ứng <img src='./assets/1758686931596.jpeg' class='inline-img'> là bao nhiêu?", 
-                options: ["–100,5 kJ.", "–494,0 kJ.", "+494,0 kJ.", "+100,5 kJ."],
-                correct: 3
-            },
-            { 
-                id: 16, type: "choice", 
-                text: "Silicon (Si) là chất bán dẫn quan trọng, được sử dụng rộng rãi trong chế tạo các vi mạch và thiết bị điện tử. Ở trạng thái cơ bản, cấu hình electron của nguyên tử Si (số hiệu nguyên tử bằng 14) là", 
-                options: ["1s²2s²2p<sup>6</sup>3s²3p¹.", "1s²2s²2p<sup>6</sup>3s<sup>3</sup>3p<sup>1</sup>.", "1s²2s²2p<sup>6</sup>3p²3s².", "1s²2s²2p<sup>6</sup>3s²3p²."],
-                correct: 3
-            },
-            // --- PHẦN 2: CÂU HỎI ĐÚNG SAI / CHÙM CÂU HỎI ---
-            { 
-                id: 17, type: "choice", 
-                text: "<b>(Câu 17-18)</b> Các công trình bằng thép (hợp kim của Fe và C) dễ bị ăn mòn điện hóa khi tiếp xúc với nước biển. Một trong số các phương pháp bảo vệ các công trình bằng thép khỏi sự ăn mòn điện hóa là gắn các khối Al (aluminium, Al), Zn (zinc, Zn) hoặc hợp kim của chúng vào phần chìm dưới nước biển của công trình đó.<br><br>Cho các phát biểu sau về ăn mòn điện hóa và phương pháp bảo vệ đối với các công trình bằng thép nêu trên: <br>(a) Các khối Al hoặc khối Zn bảo vệ thép theo phương pháp điện hóa. <br>(b) Khi thép bị ăn mòn điện hóa, iron trong thép bị oxi hoá. <br>(c) Thép bị ăn mòn điện hóa mà không cần tiếp xúc với dung dịch chất điện li. <br>(d) Khi bảo vệ thép theo phương pháp điện hóa, Al hoặc Zn đóng vai trò là cathode nên bị ăn mòn trước. <br>Số phát biểu đúng là", 
-                options: ["3.", "2.", "1.", "4."],
-                correct: 1
-            },
-            { 
-                id: 18, type: "choice", 
-                text: "Cho biết thế điện cực chuẩn của Na⁺/Na và Fe²⁺/Fe lần lượt là –2,713 V và –0,440 V. Khi thảo luận về phương pháp bảo vệ các công trình bằng thép nêu trên khỏi sự ăn mòn điện hóa, một học sinh đề xuất: “Có thể sử dụng khối kim loại sodium (sodium, Na) thay thế cho các khối Al hoặc Zn để bảo vệ các công trình bằng thép đó”. Một số nhận định đồng tình và không đồng tình về đề xuất này được đưa ra như sau:<br>(1) Sử dụng khối kim loại sodium do kim loại này có tính khử mạnh hơn iron. <br>(2) Có thể sử dụng khối kim loại sodium do kim loại này và Al đều có khối lượng riêng nhỏ. <br>(3) Không thể sử dụng khối kim loại sodium do kim loại này dễ phản ứng với nước biển. <br>(4) Không thể sử dụng khối kim loại sodium do kim loại này có tính khử yếu hơn iron.<br>Nhận định đúng là", 
-                options: ["nhận định (4).", "nhận định (3).", "nhận định (2).", "nhận định (1)."],
-                correct: 1
-            },
-            { 
-                id: 19, type: "choice", 
-                text: "Tơ capron là loại tơ có tính dai, độ đàn hồi và độ bóng cao, ít thấm nước và được sử dụng để dệt vải may mặc. Tơ capron được tổng hợp từ caprolactam theo phương trình hóa học sau:<br><img src='./assets/1758686935044.jpeg' class='block-img'><br>Chọn các đáp án sai", 
-                options: ["a) Trong phản ứng (1), các phân tử monomer bị mở vòng.", "b) Tơ capron là tơ bán tổng hợp.", "c) Do tơ capron và tơ nylon-6,6 đều có các nhóm –CO–NH– nên hai loại tơ này đều bền với dung dịch kiềm mạnh.", "d) Do tơ capron có các nhóm –CO–NH– nên tơ capron là peptide."],
-                correct: 1 // Ví dụ
-            },
-            { 
-                id: 22, type: "choice", 
-                text: "Một nhà máy sản xuất sodium hydroxide (NaOH) và chlorine (Cl<sub>2</sub>) bằng phương pháp điện phân dung dịch sodium chloride (NaCl) có màng ngăn với điện cực theo phương trình hóa học sau:<br><img src='./assets/1758686935847.jpeg' class='block-img'><br>Sodium hydroxide rắn thu được bằng cách cô đặc rồi hạ nhiệt độ dung dịch chứa NaOH sau điện phân.<br>Lựa chọn 2 đáp án", 
-                options: ["a) Trong quá trình điện phân, dung dịch ở khu vực cathode có pH < 7.", "b) Màng ngăn giúp ngăn phản ứng giữa sodium hydroxide và chlorine trong quá trình điện phân.", "c) Tại anode, khí chlorine thu được do sự oxi hóa ion chloride.", "d) Sodium hydroxide rắn thu được từ dung dịch chứa NaOH bằng phương pháp chiết."],
-                correct: 1 // Ví dụ
-            },
-            { 
-                id: 24, type: "choice", 
-                text: "Trong phòng thí nghiệm, một nhóm học sinh tìm hiểu ảnh hưởng của thời gian lưu giữ tới nồng độ FeSO₄ trong dung dịch. Giả thuyết của nhóm học sinh là: “Khi để lâu, nồng độ FeSO<sub>4</sub> trong dung dịch giảm.” <br>Nhóm học sinh chuẩn bị 250,0 mL dung dịch FeSO<sub>4</sub> (nồng độ khoảng 0,1 M) đựng trong bình kín (dán nhãn bình là Y) và tiến hành các thí nghiệm ở hai thời điểm khác nhau như sau:<br><img src='./assets/1758686936810.jpeg' class='block-img'><br>- Ngày thứ nhất: <br>Bước 1: Lấy 10,00 mL dung dịch trong bình Y cho vào bình tam giác rồi thêm tiếp 5 mL dung dịch H<sub>2</sub>SO<sub>4</sub> 2 M. <br>Bước 2: Chuẩn độ dung dịch trong bình tam giác bằng dung dịch KMnO<sub>4</sub> 2,20×10⁻<sup>2</sup> M đến khi xuất hiện màu hồng nhạt (bền trong khoảng 20 giây) thì dừng. Ghi lại thể tích dung dịch KMnO<sub>4</sub> đã dùng.<br>Lặp lại thí nghiệm chuẩn độ thêm 2 lần. Thể tích trung bình của dung dịch KMnO<sub>4</sub> sau 3 lần chuẩn độ là 10,70 mL. Nồng độ của Fe(II) xác định được là C<sub>1</sub> M.<br>- Ngày thứ tám: <br>Xác định lại hàm lượng Fe(II) của dung dịch chứa trong bình Y theo các bước tương tự như ngày thứ nhất. <br>Thể tích trung bình của dung dịch KMnO<sub>4</sub> sau 3 lần chuẩn độ là 9,92 mL. Nồng độ của Fe(II) xác định được là C<sub>2</sub> M.<br>Nồng độ dung dịch KMnO<sub>4</sub> như nhau trong các thí nghiệm chuẩn độ. Sự thay đổi nồng độ của Fe(II) (q%) được tính theo công thức:<br><img src='./assets/1758686937427.jpeg' class='inline-img'><br>Lựa chọn 2 đáp án", 
-                options: ["a) Khi chuẩn độ, dung dịch KMnO₄ được nhỏ trực tiếp vào bình tam giác từ dụng cụ kí hiệu là (B) được minh họa ở Hình 1.", "b) Giá trị của q là 7,9. (Kết quả các phép tính trung gian không được làm tròn, chỉ kết quả cuối cùng được làm tròn đến hàng phần mười.)", "c) Giá trị của C<sub>2</sub> là 0,109. (Kết quả các phép tính trung gian không được làm tròn, chỉ kết quả cuối cùng được làm tròn đến hàng phần nghìn.)", "d) Kết quả thu được từ các thí nghiệm phù hợp với giả thuyết ban đầu của nhóm học sinh."],
-                correct: 3 // Ví dụ
-            },
-            { 
-                id: 26, type: "choice", 
-                text: "Trong phòng thí nghiệm, benzoic acid được điều chế từ toluene theo sơ đồ gồm hai giai đoạn được đánh số (1) và (2) như sau:<br><img src='./assets/1758686942679.jpeg' class='block-img'><br>Trong một thí nghiệm tổng hợp benzoic acid theo sơ đồ trên, từ 2,0 mL toluene (khối lượng riêng bằng 0,867 g L⁻¹) thu được 1,40 gam benzoic acid. Biết KMnO<sub>4</sub> và HCl được lấy dư. Hiệu suất của quá trình tổng hợp benzoic acid từ toluene là h%.<br>Cho biết số sóng hấp thụ đặc trưng của một số liên kết trên phổ hồng ngoại như sau:<br><img src='./assets/1758686943432.jpeg' class='block-img'><br>Lựa chọn 2 đáp án", 
-                options: ["a) Giá trị của h là 60,9. (Kết quả các phép tính trung gian không được làm tròn, chỉ kết quả cuối cùng được làm tròn đến hàng phần mười.)", "b) Trong phản ứng với KMnO<sub>4</sub> (aq) ở giai đoạn (1), toluene đóng vai trò là chất oxi hóa.", "c) Trên phổ hồng ngoại của benzoic acid, tín hiệu (peak) ở 1690 cm⁻¹ đặc trưng cho liên kết O–H.", "d) Trong phản ứng ở giai đoạn (2), anion C<sub>6</sub>H<sub>5</sub>COO⁻ là một base theo thuyết Brønsted – Lowry."],
-                correct: 0 // Ví dụ
-            },
-            // --- PHẦN 3: TRẮC NGHIỆM TRẢ LỜI NGẮN (INPUT) ---
-            { 
-                id: 28, type: "input", 
-                text: "Có bao nhiêu công thức cấu tạo của aldehyde ứng với công thức phân tử C<sub>5</sub>H<sub>10</sub>O?", 
-                placeholder: "Nhập số...",
-                correct: "4"
-            },
-            { 
-                id: 29, type: "input", 
-                text: "Trong phân tử peptide cho dưới đây có bao nhiêu liên kết peptide?", 
-                placeholder: "Nhập số...",
-                correct: "3"
-            },
-            { 
-                id: 30, type: "input", 
-                text: "Phần trăm khối lượng carbon trong benzene là a%. Giá trị của a là bao nhiêu? (Làm tròn kết quả đến hàng phần mười.)", 
-                placeholder: "Nhập giá trị...",
-                correct: "92.3"
-            },
-            { 
-                id: 31, type: "input", 
-                text: "Lượng nhiệt tỏa ra khi đốt cháy hoàn toàn 1 gam nhiên liệu (kí hiệu là Q, tính theo kJ g⁻¹) được sử dụng để đánh giá mức độ “giàu năng lượng” của nhiên liệu đó. Ở điều kiện chuẩn, giá trị Q của ethanol lỏng và một loại khí đốt G lần lượt là Q<sub>E</sub> và Q<sub>G</sub>. Cho biết: G chỉ chứa propane và butane với tỉ lệ mol tương ứng là 1: 2; nhiệt tạo thành chuẩn của các chất được cho trong bảng:<br><img src='./assets/1758686949626.jpeg' class='block-img'><br>Đặt <img src='./assets/1758686950313.jpeg' class='inline-img'>, giá trị của k bằng bao nhiêu? (Không làm tròn kết quả các phép tính trung gian, chỉ làm tròn kết quả cuối cùng đến hàng phần trăm.)", 
-                placeholder: "Nhập giá trị...",
-                correct: "1.65"
-            },
-            { 
-                id: 32, type: "input", 
-                text: "Luyện thép từ gang là quá trình làm giảm hàm lượng carbon và một số nguyên tố khác có trong gang. Một nhà máy luyện thép sử dụng loại gang nguyên liệu trong đó carbon chiếm 4,60% về khối lượng, còn lại là iron (coi hàm lượng các nguyên tố khác không đáng kể). Khi tiến hành luyện thép, một lượng 2,88 tấn khí oxygen được thổi vào 45,0 tấn gang nguyên liệu nóng chảy để oxi hóa carbon thành CO và CO<sub>2</sub>. Hỗn hợp khí thu được chỉ gồm CO và CO<sub>2</sub> có số mol bằng nhau. Phần trăm khối lượng carbon trong thép thu được là w%. Giá trị của w là bao nhiêu? (Không làm tròn kết quả các phép tính trung gian, chỉ làm tròn kết quả cuối cùng đến hàng phần trăm.)", 
-                placeholder: "Nhập giá trị...",
-                correct: "0.98"
-            },
-            { 
-                id: 33, type: "input", 
-                text: "Oleum Z (H<sub>2</sub>SO<sub>4</sub>·nSO<sub>3</sub>) được tạo thành khi cho 100 kg dung dịch H<sub>2</sub>SO<sub>4</sub> 98% hấp thụ hoàn toàn 25 kg SO<sub>3</sub>. Phần trăm khối lượng SO<sub>3</sub> trong Z là b%. Xác định giá trị của b. (Không làm tròn kết quả các phép tính trung gian, chỉ làm tròn kết quả cuối cùng đến hàng phần mười.)", 
-                placeholder: "Nhập giá trị...",
-                correct: "37.1"
-            }
+            { id: 1, type: "choice", text: "Ở điều kiện thường, kim loại nào sau đây tồn tại ở thể lỏng?", options: ["Ag.", "Hg.", "Al.", "Cu."], correct: 1 },
+            { id: 2, type: "choice", text: "Trong phức chất, số liên kết σ (sigma) tạo thành giữa một phối tử với nguyên tử trung tâm được gọi là dung lượng phối trí của phối tử đó. Cấu tạo của phức chất [Cu(OH<sub>2</sub>)<sub>6</sub>]²⁺ hay [Cu(H<sub>2</sub>O)<sub>6</sub>]<sup>2+</sup> được cho ở hình bên. Dung lượng phối trí của mỗi phối tử H<sub>2</sub>O trong phức chất đã cho là<br> <img src='./assets/1758686909321.jpeg' class='block-img'>", options: ["2.", "6.", "3.", "1."], correct: 3 },
+            { id: 3, type: "choice", text: "Trong phòng thí nghiệm, dung dịch chất nào sau đây phù hợp để kiểm tra sự có mặt của ion Ca²⁺(aq)?", options: ["HCl.", "NaNO<sub>3</sub>.", "NaCl.", "Na<sub>2</sub>CO<sub>3</sub>."], correct: 3 },
+            { id: 4, type: "choice", text: "Phản ứng điều chế ethanol từ ethene theo phương trình hóa học C<sub>2</sub>H<sub>4</sub> + H<sub>2</sub>O <img src='./assets/1758686910508.jpeg' class='inline-img'> C<sub>2</sub>H<sub>5</sub>OH  là phản ứng", options: ["hydrogen hoá.", "trùng ngưng.", "ester hoá.", "hydrate hoá."], correct: 3 },
+            { id: 5, type: "choice", text: "Từ phổ khối lượng, phân tử khối của ester X được xác định là 88. Công thức phù hợp với X là", options: ["CH<sub>3</sub>CH<sub>2</sub>OH.", "CH<sub>3</sub>COOC<sub>2</sub>H<sub>5</sub>.", "C<sub>3</sub>H<sub>7</sub>COOH.", "HCOOC<sub>2</sub>H<sub>5</sub>."], correct: 1 },
+            { id: 6, type: "choice", text: "Tên gọi theo danh pháp thay thế của chất có công thức cấu tạo CH<sub>3</sub> – NH<sub>2</sub> là", options: ["methanamine.", "ethylamine.", "methylamine.", "ethanamine."], correct: 0 },
+            { id: 7, type: "choice", text: "Trong phản ứng tách kim loại Cu từ CuSO₄ theo phương trình hoá học Zn(s) + CuSO₄(aq) → ZnSO₄(aq) + Cu(s), phương pháp tách kim loại nào sau đây đã được áp dụng?", options: ["Nhiệt luyện.", "Thủy luyện.", "Điện phân nóng chảy.", "Điện phân dung dịch."], correct: 1 },
+            { id: 8, type: "choice", text: "Cho các phát biểu sau về tính chất của methylamine: <br>(a) Methylamine làm giấy quỳ tím ẩm hóa đỏ. <br>(b) Methylamine phản ứng được với HCl trong dung dịch. <br>(c) Methylamine không phản ứng được với dung dịch FeCl<sub>3</sub> ở điều kiện thường. <br>(d) Dung dịch methylamine phản ứng được với Cu(OH)<sub>2</sub>.<br>Số phát biểu đúng là", options: ["4.", "3.", "2.", "1."], correct: 2 },
+            { id: 9, type: "choice", text: "Cho thế điện cực chuẩn của Ag⁺/Ag và Zn<sup>2</sup>⁺/Zn lần lượt là <img src='./assets/1758686911465.jpeg' class='inline-img'> = +0,799 V và <img src='./assets/1758686912263.jpeg' class='inline-img'> = –0,763 V. Sức điện động chuẩn của pin Galvani (<img src='./assets/1758686913088.jpeg' class='inline-img'>) tạo bởi hai cặp oxi hóa – khử Ag⁺/Ag và Zn<sup>2</sup>⁺/Zn được tính theo công thức nào sau đây?", options: ["<img src='./assets/1758686913947.jpeg' class='h-8'>", "<img src='./assets/1758686916401.jpeg' class='h-8'>", "<img src='./assets/1758686918561.jpeg' class='h-8'>", "<img src='./assets/1758686920897.jpeg' class='h-8'>"], correct: 0 },
+            { id: 10, type: "choice", text: "Phát biểu nào sau đây về fructose không đúng?", options: ["Fructose có công thức phân tử C<sub>6</sub>H<sub>12</sub>O<sub>6</sub>.", "Fructose phản ứng được với Cu(OH)<sub>2</sub> trong môi trường kiềm ở điều kiện thường.", "Fructose thuộc loại monosaccharide.", "Fructose làm mất màu nước bromine ở điều kiện thường."], correct: 3 },
+            { id: 11, type: "choice", text: "Cho phản ứng thuận nghịch sau: H<sub>2</sub>(g) + I<sub>2</sub> (g) <img src='./assets/1758686923140.jpeg' class='inline-img'> 2HI(g). Ở trạng thái cân bằng, nồng độ (mol·L⁻¹) của H₂(g), I₂(g) và HI(g) được kí hiệu lần lượt là [H<sub>2</sub>], [I<sub>2</sub>] và [HI]. Biểu thức hằng số cân bằng Kc của phản ứng là", options: ["<img src='./assets/1758686923863.jpeg' class='h-10'>", "<img src='./assets/1758686924583.jpeg' class='h-10'>", "<img src='./assets/1758686925471.jpeg' class='h-10'>", "<img src='./assets/1758686926291.jpeg' class='h-10'>"], correct: 1 },
+            { id: 12, type: "choice", text: "Số lượng phối tử trong phức chất [Co(NH<sub>3</sub>)<sub> 6</sub>]<sup>3</sup>⁺ là", options: ["6.", "7.", "3.", "1."], correct: 0 },
+            { id: 13, type: "choice", text: "Trong các phản ứng hữu cơ thường có sự tạo thành các tiểu phân trung gian hoạt động như gốc tự do, carbanion, carbocation. Carbocation là ion mang điện tích dương trên nguyên tử carbon. Có bao nhiêu carbocation trong số các tiểu phân<br> <img src='./assets/1758686927081.jpeg' class='inline-img'>, <img src='./assets/1758686927891.jpeg' class='inline-img'>, <img src='./assets/1758686928731.jpeg' class='inline-img'>và <img src='./assets/1758686929466.jpeg' class='inline-img'>?", options: ["3.", "2.", "1.", "4."], correct: 1 },
+            { id: 14, type: "choice", text: "“…(1)… là những hợp chất hữu cơ trong phân tử có nhóm hydroxy liên kết với nguyên tử carbon no”. <br>Nội dung phù hợp trong chỗ trống (1) là", options: ["Ketone.", "Phenol.", "Aldehyde.", "Alcohol."], correct: 3 },
+            { id: 15, type: "choice", text: "Nhiệt tạo thành chuẩn (<img src='./assets/1758686930194.jpeg' class='inline-img'>) của MgCO<sub>3</sub>(s), MgO(s) và CO<sub>2</sub>(g) lần lượt là –1096,0 kJ·mol⁻¹; –602,0 kJ·mol⁻¹ và –393,5 kJ·mol⁻¹. <br>Biến thiên enthalpy chuẩn (<img src='./assets/1758686930984.jpeg' class='inline-img'>) của phản ứng <img src='./assets/1758686931596.jpeg' class='inline-img'> là bao nhiêu?", options: ["–100,5 kJ.", "–494,0 kJ.", "+494,0 kJ.", "+100,5 kJ."], correct: 3 },
+            { id: 16, type: "choice", text: "Silicon (Si) là chất bán dẫn quan trọng, được sử dụng rộng rãi trong chế tạo các vi mạch và thiết bị điện tử. Ở trạng thái cơ bản, cấu hình electron của nguyên tử Si (số hiệu nguyên tử bằng 14) là", options: ["1s²2s²2p<sup>6</sup>3s²3p¹.", "1s²2s²2p<sup>6</sup>3s³3p¹.", "1s²2s²2p<sup>6</sup>3p²3s².", "1s²2s²2p<sup>6</sup>3s²3p²."], correct: 3 },
+            { id: 17, type: "choice", text: "<b>(Câu 17-18)</b> Các công trình bằng thép (hợp kim của Fe và C) dễ bị ăn mòn điện hóa khi tiếp xúc với nước biển. Một trong số các phương pháp bảo vệ các công trình bằng thép khỏi sự ăn mòn điện hóa là gắn các khối Al (aluminium, Al), Zn (zinc, Zn) hoặc hợp kim của chúng vào phần chìm dưới nước biển của công trình đó.<br><br>Cho các phát biểu sau về ăn mòn điện hóa và phương pháp bảo vệ đối với các công trình bằng thép nêu trên: <br>(a) Các khối Al hoặc khối Zn bảo vệ thép theo phương pháp điện hóa. <br>(b) Khi thép bị ăn mòn điện hóa, iron trong thép bị oxi hoá. <br>(c) Thép bị ăn mòn điện hóa mà không cần tiếp xúc với dung dịch chất điện li. <br>(d) Khi bảo vệ thép theo phương pháp điện hóa, Al hoặc Zn đóng vai trò là cathode nên bị ăn mòn trước. <br>Số phát biểu đúng là", options: ["3.", "2.", "1.", "4."], correct: 1 },
+            { id: 18, type: "choice", text: "Cho biết thế điện cực chuẩn của Na⁺/Na và Fe²⁺/Fe lần lượt là –2,713 V và –0,440 V. Khi thảo luận về phương pháp bảo vệ các công trình bằng thép nêu trên khỏi sự ăn mòn điện hóa, một học sinh đề xuất: “Có thể sử dụng khối kim loại sodium (sodium, Na) thay thế cho các khối Al hoặc Zn để bảo vệ các công trình bằng thép đó”. Một số nhận định đồng tình và không đồng tình về đề xuất này được đưa ra như sau:<br>(1) Sử dụng khối kim loại sodium do kim loại này có tính khử mạnh hơn iron. <br>(2) Có thể sử dụng khối kim loại sodium do kim loại này và Al đều có khối lượng riêng nhỏ. <br>(3) Không thể sử dụng khối kim loại sodium do kim loại này dễ phản ứng với nước biển. <br>(4) Không thể sử dụng khối kim loại sodium do kim loại này có tính khử yếu hơn iron.<br>Nhận định đúng là", options: ["nhận định (4).", "nhận định (3).", "nhận định (2).", "nhận định (1)."], correct: 1 },
+            { id: 19, type: "group", text: "Tơ capron là loại tơ có tính dai, độ đàn hồi và độ bóng cao, ít thấm nước và được sử dụng để dệt vải may mặc. Tơ capron được tổng hợp từ caprolactam theo phương trình hóa học sau:<br><img src='./assets/1758686935044.jpeg' class='block-img'><br>Mỗi phát biểu sau đây là Đúng hay Sai?", options: ["Trong phản ứng (1), các phân tử monomer bị mở vòng.", "Tơ capron là tơ bán tổng hợp.", "Do tơ capron và tơ nylon-6,6 đều có các nhóm –CO–NH– nên hai loại tơ này đều bền với dung dịch kiềm mạnh.", "Do tơ capron có các nhóm –CO–NH– nên tơ capron là peptide."], correct: [true, false, false, false] },
+            { id: 22, type: "group", text: "Một nhà máy sản xuất sodium hydroxide (NaOH) và chlorine (Cl<sub>2</sub>) bằng phương pháp điện phân dung dịch sodium chloride (NaCl) có màng ngăn với điện cực theo phương trình hóa học sau:<br><img src='./assets/1758686935847.jpeg' class='block-img'><br>Sodium hydroxide rắn thu được bằng cách cô đặc rồi hạ nhiệt độ dung dịch chứa NaOH sau điện phân.<br>Mỗi phát biểu sau đây là Đúng hay Sai?", options: ["Trong quá trình điện phân, dung dịch ở khu vực cathode có pH < 7.", "Màng ngăn giúp ngăn phản ứng giữa sodium hydroxide và chlorine trong quá trình điện phân.", "Tại anode, khí chlorine thu được do sự oxi hóa ion chloride.", "Sodium hydroxide rắn thu được từ dung dịch chứa NaOH bằng phương pháp chiết."], correct: [false, true, true, false] },
+            { id: 24, type: "group", text: "Trong phòng thí nghiệm, một nhóm học sinh tìm hiểu ảnh hưởng của thời gian lưu giữ tới nồng độ FeSO₄ trong dung dịch. Giả thuyết của nhóm học sinh là: “Khi để lâu, nồng độ FeSO<sub>4</sub> trong dung dịch giảm.” <br>Nhóm học sinh chuẩn bị 250,0 mL dung dịch FeSO<sub>4</sub> (nồng độ khoảng 0,1 M) đựng trong bình kín (dán nhãn bình là Y) và tiến hành các thí nghiệm ở hai thời điểm khác nhau như sau:<br><img src='./assets/1758686936810.jpeg' class='block-img'><br>- Ngày thứ nhất: <br>Bước 1: Lấy 10,00 mL dung dịch trong bình Y cho vào bình tam giác rồi thêm tiếp 5 mL dung dịch H<sub>2</sub>SO<sub>4</sub> 2 M. <br>Bước 2: Chuẩn độ dung dịch trong bình tam giác bằng dung dịch KMnO<sub>4</sub> 2,20×10⁻<sup>2</sup> M đến khi xuất hiện màu hồng nhạt (bền trong khoảng 20 giây) thì dừng. Ghi lại thể tích dung dịch KMnO<sub>4</sub> đã dùng.<br>Lặp lại thí nghiệm chuẩn độ thêm 2 lần. Thể tích trung bình của dung dịch KMnO<sub>4</sub> sau 3 lần chuẩn độ là 10,70 mL. Nồng độ của Fe(II) xác định được là C<sub>1</sub> M.<br>- Ngày thứ tám: <br>Xác định lại hàm lượng Fe(II) của dung dịch chứa trong bình Y theo các bước tương tự như ngày thứ nhất. <br>Thể tích trung bình của dung dịch KMnO<sub>4</sub> sau 3 lần chuẩn độ là 9,92 mL. Nồng độ của Fe(II) xác định được là C<sub>2</sub> M.<br>Nồng độ dung dịch KMnO<sub>4</sub> như nhau trong các thí nghiệm chuẩn độ. Sự thay đổi nồng độ của Fe(II) (q%) được tính theo công thức:<br><img src='./assets/1758686937427.jpeg' class='inline-img'><br>Mỗi phát biểu sau đây là Đúng hay Sai?", options: ["Khi chuẩn độ, dung dịch KMnO₄ được nhỏ trực tiếp vào bình tam giác từ dụng cụ kí hiệu là (B) được minh họa ở Hình 1.", "Giá trị của q là 7,9. (Kết quả các phép tính trung gian không được làm tròn, chỉ kết quả cuối cùng được làm tròn đến hàng phần mười.)", "Giá trị của C<sub>2</sub> là 0,109. (Kết quả các phép tính trung gian không được làm tròn, chỉ kết quả cuối cùng được làm tròn đến hàng phần nghìn.)", "Kết quả thu được từ các thí nghiệm phù hợp với giả thuyết ban đầu của nhóm học sinh."], correct: [false, true, false, true] },
+            { id: 26, type: "group", text: "Trong phòng thí nghiệm, benzoic acid được điều chế từ toluene theo sơ đồ gồm hai giai đoạn được đánh số (1) và (2) như sau:<br><img src='./assets/1758686942679.jpeg' class='block-img'><br>Trong một thí nghiệm tổng hợp benzoic acid theo sơ đồ trên, từ 2,0 mL toluene (khối lượng riêng bằng 0,867 g L⁻¹) thu được 1,40 gam benzoic acid. Biết KMnO<sub>4</sub> và HCl được lấy dư. Hiệu suất của quá trình tổng hợp benzoic acid từ toluene là h%.<br>Cho biết số sóng hấp thụ đặc trưng của một số liên kết trên phổ hồng ngoại như sau:<br><img src='./assets/1758686943432.jpeg' class='block-img'><br>Mỗi phát biểu sau đây là Đúng hay Sai?", options: ["Giá trị của h là 60,9. (Kết quả các phép tính trung gian không được làm tròn, chỉ kết quả cuối cùng được làm tròn đến hàng phần mười.)", "Trong phản ứng với KMnO<sub>4</sub> (aq) ở giai đoạn (1), toluene đóng vai trò là chất oxi hóa.", "Trên phổ hồng ngoại của benzoic acid, tín hiệu (peak) ở 1690 cm⁻¹ đặc trưng cho liên kết O–H.", "Trong phản ứng ở giai đoạn (2), anion C<sub>6</sub>H<sub>5</sub>COO⁻ là một base theo thuyết Brønsted – Lowry."], correct: [true, false, false, true] },
+            { id: 28, type: "input", text: "Có bao nhiêu công thức cấu tạo của aldehyde ứng với công thức phân tử C<sub>5</sub>H<sub>10</sub>O?", placeholder: "Nhập số...", correct: "4" },
+            { id: 29, type: "input", text: "Trong phân tử peptide cho dưới đây có bao nhiêu liên kết peptide?", placeholder: "Nhập số...", correct: "3" },
+            { id: 30, type: "input", text: "Phần trăm khối lượng carbon trong benzene là a%. Giá trị của a là bao nhiêu? (Làm tròn kết quả đến hàng phần mười.)", placeholder: "Nhập giá trị...", correct: "92.3" },
+            { id: 31, type: "input", text: "Lượng nhiệt tỏa ra khi đốt cháy hoàn toàn 1 gam nhiên liệu (kí hiệu là Q, tính theo kJ g⁻¹) được sử dụng để đánh giá mức độ “giàu năng lượng” của nhiên liệu đó. Ở điều kiện chuẩn, giá trị Q của ethanol lỏng và một loại khí đốt G lần lượt là Q<sub>E</sub> và Q<sub>G</sub>. Cho biết: G chỉ chứa propane và butane với tỉ lệ mol tương ứng là 1: 2; nhiệt tạo thành chuẩn của các chất được cho trong bảng:<br><img src='./assets/1758686949626.jpeg' class='block-img'><br>Đặt <img src='./assets/1758686950313.jpeg' class='inline-img'>, giá trị của k bằng bao nhiêu? (Không làm tròn kết quả các phép tính trung gian, chỉ làm tròn kết quả cuối cùng đến hàng phần trăm.)", placeholder: "Nhập giá trị...", correct: "1.65" },
+            { id: 32, type: "input", text: "Luyện thép từ gang là quá trình làm giảm hàm lượng carbon và một số nguyên tố khác có trong gang. Một nhà máy luyện thép sử dụng loại gang nguyên liệu trong đó carbon chiếm 4,60% về khối lượng, còn lại là iron (coi hàm lượng các nguyên tố khác không đáng kể). Khi tiến hành luyện thép, một lượng 2,88 tấn khí oxygen được thổi vào 45,0 tấn gang nguyên liệu nóng chảy để oxi hóa carbon thành CO và CO<sub>2</sub>. Hỗn hợp khí thu được chỉ gồm CO và CO<sub>2</sub> có số mol bằng nhau. Phần trăm khối lượng carbon trong thép thu được là w%. Giá trị của w là bao nhiêu? (Không làm tròn kết quả các phép tính trung gian, chỉ làm tròn kết quả cuối cùng đến hàng phần trăm.)", placeholder: "Nhập giá trị...", correct: "0.98" },
+            { id: 33, type: "input", text: "Oleum Z (H<sub>2</sub>SO<sub>4</sub>·nSO<sub>3</sub>) được tạo thành khi cho 100 kg dung dịch H<sub>2</sub>SO<sub>4</sub> 98% hấp thụ hoàn toàn 25 kg SO<sub>3</sub>. Phần trăm khối lượng SO<sub>3</sub> trong Z là b%. Xác định giá trị của b. (Không làm tròn kết quả các phép tính trung gian, chỉ làm tròn kết quả cuối cùng đến hàng phần mười.)", placeholder: "Nhập giá trị...", correct: "37.1" }
         ]
     }
 ];
