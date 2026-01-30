@@ -2,14 +2,8 @@
 const SECURE_VAULT = {
     // Cấu hình định danh
     meta: { name: "IQO ULTRA", ver: "2026.5.0-Quantum", build: "Titanium" },
-    
-    // MUỐI BẢO MẬT (Thay đổi chuỗi này sẽ làm hỏng toàn bộ key cũ -> Chống dịch ngược)
     _salt: "IQO_v2026_DELTA_OMEGA_@991#_SALT_&^%", 
-    
-    // KHO HASH (Đã được băm 100.000 lần từ bộ Key tôi gửi bạn)
-    // AI hay Hacker nhìn vào đây chỉ thấy chuỗi ngẫu nhiên, không thể suy ngược ra Key gốc.
     _ledger: {
-        // GIEO NHÂN NÀO 
         pro: [
             "d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e553",
             "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
@@ -22,9 +16,8 @@ const SECURE_VAULT = {
             "5883236355407077309990145892523275727653596774640960548177573030",
             "c911802f01201275988226071720845340026365175968254823659286450090"
         ],
-        // GẶT QUẢ NẤY
         zero: [
-            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", // CÓ LÀM THÌ MỚI CÓ ĂN
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "1c82803375e29729841026607421160356972740924976450974577881023075",
             "532eaabd9574880dbf76b9b8cc00832c20a6ec113d682299550d7a6e0f345e25",
             "7d1a54127b222502f5b7d952d795f7c223056ef9828b61a45747444747530643",
@@ -38,7 +31,7 @@ const SECURE_VAULT = {
     }
 };
 
-// --- PHẦN 1: DỮ LIỆU HÓA HỌC (NGUYÊN VĂN TỪ ẢNH/FILE) ---
+// NOI IT THOI
 const DATA_HOA_HOC = [
     { 
         type: "choice", 
@@ -529,7 +522,7 @@ const DATA_XAC_SUAT = [
     }
 ];
 
-// --- HỢP NHẤT VÀ XỬ LÝ ID ---
+// --- HỢP NHẤT DỮ LIỆU ---
 const FINAL_DATA = [
     {
         id: "thpt-hoa-338-final",
@@ -542,17 +535,26 @@ const FINAL_DATA = [
     {
         id: "chuyen-de-xac-suat-2026",
         category: "chuyende",
-        title: "CHUYÊN ĐỀ: XÁC SUẤT (FULL DẠNG)",
+        title: "CHUYÊN ĐỀ: XÁC SUẤT",
         subtitle: "Ôn thi HSG & THPT QG • Dữ liệu gốc",
         time: 90,
         questions: DATA_XAC_SUAT
     }
 ];
 
+// Tạo ID ngẫu nhiên cho câu hỏi
 const usedIds = new Set();
+const generateId = () => {
+    let id;
+    do {
+        id = Math.random().toString(36).substring(2, 8);
+    } while (usedIds.has(id));
+    return id;
+};
+
 FINAL_DATA.forEach(exam => {
     exam.questions.forEach(q => {
-        q.uid = generateId(usedIds);
+        q.uid = generateId();
         usedIds.add(q.uid);
     });
 });
