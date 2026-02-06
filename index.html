@@ -1,308 +1,273 @@
 <!DOCTYPE html>
 <html lang="vi" class="antialiased">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Phòng thi ảo IQO</title>
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#f5f5f7">
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-<!-- Import Data với xử lý lỗi -->
-<script src="data.js" onerror="alert('LỖI: Không tìm thấy file data.js! Hãy đảm bảo file này nằm cùng thư mục với index.html')"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Phòng thi ảo IQO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        const SECURE_VAULT = {
+            _salt: "iqo_secret_salt_2024",
+            _ledger: {
+                zero: ["5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"], // Ví dụ mã hash của 'password'
+                pro: []
+            }
+        };
+    </script>
 
-<style>
-    :root {
-        --bg: #f5f5f7; --card: #ffffff; --text: #1d1d1f; --sub: #86868b;
-        --accent: #0071e3; --success: #34c759; --danger: #ff3b30; --gold: #F5A623;
-        --glass: rgba(255, 255, 255, 0.85);
-        --font-main: 'Inter', system-ui, -apple-system, sans-serif;
-    }
-    .dark {
-        --bg: #000000; --card: #1c1c1e; --text: #f5f5f7; --sub: #98989d;
-        --accent: #0a84ff; --glass: rgba(28, 28, 30, 0.85);
-    }
-    
-    body { font-family: var(--font-main); background: var(--bg); color: var(--text); height: 100vh; overflow: hidden; -webkit-tap-highlight-color: transparent; transition: background 0.3s ease; user-select: none; }
-    
-    /* Styles */
-    .glass-panel { background: var(--glass); backdrop-filter: blur(25px) saturate(180%); -webkit-backdrop-filter: blur(25px) saturate(180%); border: 1px solid rgba(128,128,128,0.1); box-shadow: 0 4px 24px rgba(0,0,0,0.04); }
-    .btn { transition: all 0.2s cubic-bezier(0.25,1,0.5,1); cursor: pointer; }
-    .btn:active { transform: scale(0.96); }
-    .option-row { transition: 0.2s; border: 1.5px solid transparent; }
-    .option-row:hover { background: rgba(128,128,128,0.05); }
-    .option-row.selected { background: rgba(0,113,227,0.08); border-color: var(--accent); }
-    .option-row.strike { opacity: 0.4; text-decoration: line-through; filter: grayscale(1); pointer-events: none; }
-    
-    /* Anti-Cheat & Features */
-    .focus-mode .sidebar, .focus-mode header { display: none !important; }
-    .focus-mode #content-area { padding: 40px !important; max-width: 800px; margin: 0 auto; }
-    #toast-box { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-150%); background: rgba(0,0,0,0.8); color: white; padding: 10px 24px; border-radius: 50px; font-size: 13px; font-weight: 600; z-index: 100; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); backdrop-filter: blur(10px); display: flex; align-items: center; gap: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-    #toast-box.show { transform: translateX(-50%) translateY(0); }
-    
-    /* Animations */
-    @keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-    @keyframes confetti { 0% { transform: translateY(0) rotateZ(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotateZ(720deg); opacity: 0; } }
-    .enter { animation: slideUp 0.4s ease-out forwards; }
-    .block-img { max-width: 100%; border-radius: 8px; margin: 10px 0; border: 1px solid rgba(128,128,128,0.2); }
-    .inline-img { display: inline-block; vertical-align: middle; max-height: 20px; }
-</style>
+    <script src="data.js" onerror="console.warn('Cảnh báo: Không tìm thấy data.js, đang sử dụng dữ liệu mẫu.')"></script>
+
+    <style>
+        :root {
+            --bg: #f5f5f7; --card: #ffffff; --text: #1d1d1f; --sub: #86868b;
+            --accent: #0071e3; --success: #34c759; --danger: #ff3b30;
+            --glass: rgba(255, 255, 255, 0.85);
+            --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .dark {
+            --bg: #000000; --card: #1c1c1e; --text: #f5f5f7; --sub: #98989d;
+            --accent: #0a84ff; --glass: rgba(28, 28, 30, 0.85);
+        }
+        body { font-family: var(--font-main); background: var(--bg); color: var(--text); transition: background 0.3s ease; }
+        .glass-panel { background: var(--glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(128,128,128,0.1); }
+        .option-row.selected { background: rgba(0,113,227,0.1); border-color: var(--accent); }
+        .option-row.strike { opacity: 0.3; text-decoration: line-through; pointer-events: none; }
+        #toast-box { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-200%); z-index: 1000; transition: 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28); }
+        #toast-box.show { transform: translateX(-50%) translateY(0); }
+        .focus-mode .sidebar, .focus-mode header { display: none !important; }
+    </style>
 </head>
+
 <body class="flex flex-col md:flex-row h-screen overflow-hidden">
 
-    <!-- Toast & Effects -->
-    <div id="toast-box">System Ready</div>
-    <div id="confetti-container" class="fixed inset-0 pointer-events-none z-[100] hidden"></div>
+    <div id="toast-box" class="bg-black text-white px-6 py-2 rounded-full text-sm font-medium shadow-2xl">Thông báo</div>
 
-    <!-- Security Modal -->
-    <div id="key-modal" class="fixed inset-0 z-[80] flex items-center justify-center bg-black/60 backdrop-blur-xl hidden">
-        <div class="glass-panel w-[90%] max-w-sm rounded-3xl p-8 shadow-2xl scale-100 enter text-center relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
-            <div class="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl shadow-inner">🛡️</div>
-            <h3 class="text-xl font-bold mb-1">IQO QUANTUM SHIELD</h3>
-            <p class="text-xs text-[var(--sub)] mb-6">Nhập mã kích hoạt (Zero/Pro) hoặc dùng thử</p>
-            <input type="text" id="key-input" placeholder="XXXX-XXXX-XXXX" class="w-full p-4 rounded-xl bg-[rgba(128,128,128,0.08)] text-center font-mono text-sm uppercase mb-4 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] transition-all">
-            <button onclick="verifyKey()" id="verify-btn" class="w-full py-3.5 rounded-xl bg-[var(--text)] text-[var(--bg)] font-bold btn mb-3 shadow-lg">XÁC THỰC KEY</button>
-            <button onclick="useFree()" class="text-xs text-[var(--sub)] hover:text-[var(--text)] underline decoration-dotted">Tiếp tục bản Miễn phí</button>
+    <div id="key-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm hidden">
+        <div class="glass-panel w-[90%] max-w-sm rounded-3xl p-8 text-center">
+            <h3 class="text-xl font-bold mb-2">🛡️ IQO SHIELD</h3>
+            <p class="text-xs text-[var(--sub)] mb-6">Nhập mã kích hoạt để mở khóa toàn bộ tính năng</p>
+            <input type="text" id="key-input" placeholder="Nhập Key tại đây..." class="w-full p-4 rounded-xl bg-gray-100 dark:bg-gray-800 mb-4 text-center font-mono focus:ring-2 focus:ring-blue-500 outline-none">
+            <button onclick="verifyKey()" id="verify-btn" class="w-full py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all">XÁC THỰC</button>
+            <button onclick="useFree()" class="mt-4 text-xs text-[var(--sub)] underline">Tiếp tục dùng miễn phí</button>
         </div>
     </div>
 
-    <!-- Sidebar -->
-    <aside class="sidebar w-full md:w-[280px] glass-panel border-r-0 md:border-r flex flex-col z-40 shrink-0 h-16 md:h-full fixed md:relative bottom-0 md:bottom-auto order-2 md:order-1 transition-all">
-        <div class="h-16 hidden md:flex items-center px-6 gap-3 select-none">
-            <div class="flex gap-1.5 absolute top-4 left-4">
-                <div class="w-3 h-3 rounded-full bg-[#FF5F57] cursor-pointer" onclick="resetApp()" title="Reset"></div>
-                <div class="w-3 h-3 rounded-full bg-[#FEBC2E] cursor-pointer" onclick="toggleDarkMode()" title="Dark Mode"></div>
-                <div class="w-3 h-3 rounded-full bg-[#28C840] cursor-pointer" onclick="toggleFocusMode()" title="Zen Mode"></div>
+    <aside class="sidebar w-full md:w-[280px] glass-panel flex flex-col z-40 h-16 md:h-full fixed md:relative bottom-0 md:top-0 order-2 md:order-1">
+        <div class="hidden md:flex p-6 flex-col gap-4">
+            <div class="flex gap-2">
+                <div onclick="resetApp()" class="w-3 h-3 rounded-full bg-red-500 cursor-pointer"></div>
+                <div onclick="toggleDarkMode()" class="w-3 h-3 rounded-full bg-yellow-500 cursor-pointer"></div>
+                <div onclick="toggleFocusMode()" class="w-3 h-3 rounded-full bg-green-500 cursor-pointer"></div>
             </div>
-            <div class="ml-auto text-right">
-                <div class="font-bold text-sm tracking-tight">IQO ULTRA</div>
-                <div class="text-[10px] text-[var(--sub)]" id="user-tier-display">Loading...</div>
+            <div class="mt-4">
+                <h1 class="font-black text-xl tracking-tighter">IQO ULTRA</h1>
+                <div id="user-tier-display" class="text-[10px] font-bold opacity-50 uppercase">FREE TIER</div>
             </div>
         </div>
-        
-        <nav class="flex-1 overflow-y-auto p-2 space-y-1 flex md:block flex-row items-center justify-around md:justify-start" id="nav-list"></nav>
-        
-        <!-- Tools -->
-        <div class="p-4 border-t border-[rgba(128,128,128,0.1)] hidden md:block">
-            <div class="flex justify-between text-xs mb-2 text-[var(--sub)]"><span>Nháp nhanh</span><button onclick="clearScratchpad()" class="hover:text-red-500">Xóa</button></div>
-            <textarea id="scratchpad" class="w-full h-24 bg-[rgba(128,128,128,0.05)] rounded-lg p-2 text-xs resize-none focus:outline-none focus:ring-1 focus:ring-[var(--accent)]" placeholder="Ghi chú..."></textarea>
-        </div>
+        <nav id="nav-list" class="flex-1 overflow-x-auto md:overflow-y-auto flex md:flex-col p-2 gap-1"></nav>
     </aside>
 
-    <!-- Main Content -->
-    <main class="flex-1 flex flex-col h-full relative overflow-hidden order-1 md:order-2 bg-[var(--bg)]">
-        <!-- Header -->
-        <header class="h-14 glass-panel border-b border-[rgba(128,128,128,0.1)] flex items-center justify-between px-6 shrink-0 z-30 transition-all">
-            <div class="flex items-center gap-4">
-                <h2 id="page-title" class="font-bold text-sm truncate max-w-[200px]">Tổng quan</h2>
-                <div id="cheating-warning" class="hidden text-xs font-bold text-red-500 bg-red-100 px-2 py-1 rounded animate-pulse">⚠️ RỜI TAB PHÁT HIỆN</div>
-            </div>
+    <main class="flex-1 flex flex-col h-full overflow-hidden order-1 md:order-2">
+        <header class="h-14 glass-panel flex items-center justify-between px-6 shrink-0">
+            <h2 id="page-title" class="font-bold truncate">Đang tải...</h2>
             <div class="flex items-center gap-3">
-                <div id="timer" class="hidden font-mono text-sm font-bold bg-[var(--accent)] text-white px-3 py-1 rounded-md shadow-lg">00:00</div>
-                <button onclick="submitExam()" id="submit-btn" class="hidden px-5 py-1.5 bg-[var(--success)] text-white rounded-full text-xs font-bold btn shadow-lg">NỘP BÀI</button>
-                <button onclick="toggleKeyModal()" class="w-8 h-8 rounded-full bg-[rgba(128,128,128,0.1)] flex items-center justify-center btn"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></button>
+                <div id="cheating-warning" class="hidden text-[10px] bg-red-500 text-white px-2 py-1 rounded-md animate-pulse">CHỐNG GIAN LẬN</div>
+                <div id="timer" class="hidden font-mono font-bold bg-black text-white px-3 py-1 rounded-md">00:00</div>
+                <button onclick="submitExam()" id="submit-btn" class="hidden px-4 py-1.5 bg-green-600 text-white rounded-full text-xs font-bold hover:bg-green-700">NỘP BÀI</button>
             </div>
         </header>
 
-        <!-- Progress -->
-        <div class="h-1 w-full bg-[rgba(128,128,128,0.1)]"><div id="progress-bar" class="h-full bg-[var(--accent)] w-0 transition-all duration-300"></div></div>
+        <div class="h-1 w-full bg-gray-200"><div id="progress-bar" class="h-full bg-blue-600 w-0 transition-all duration-500"></div></div>
 
-        <!-- Viewport -->
-        <div id="content-area" class="flex-1 overflow-y-auto p-4 md:p-8 scroll-smooth pb-24 md:pb-8 relative"></div>
-        
-        <!-- Explanation Overlay -->
-        <div id="expl-modal" class="absolute inset-0 bg-[var(--bg)] z-50 transform translate-y-full transition-transform duration-300 flex flex-col glass-panel">
-            <div class="h-14 border-b flex items-center justify-between px-6 shrink-0 bg-[var(--glass)]">
-                <h3 class="font-bold text-[var(--accent)]">Lời giải chi tiết</h3>
-                <button onclick="closeExpl()" class="w-8 h-8 rounded-full bg-[rgba(128,128,128,0.1)] flex items-center justify-center">✕</button>
+        <div id="content-area" class="flex-1 overflow-y-auto p-4 md:p-10 pb-32">
             </div>
-            <div class="flex-1 overflow-y-auto p-6 md:p-10" id="expl-content"></div>
-        </div>
     </main>
 
 <script>
-// --- GLOBAL STATE ---
 const $ = s => document.querySelector(s);
 let STATE = { tier: 'free', exam: null, answers: {}, timer: null, time: 0, cheatCount: 0 };
 
-// --- SECURITY CORE (QuantumGuard) ---
+// Giả lập EXAM_DATA nếu file data.js bị lỗi
+if (typeof EXAM_DATA === 'undefined') {
+    window.EXAM_DATA = [{
+        id: 'demo-1', title: 'Đề mẫu IQ', category: 'IQ', subtitle: 'Kiểm tra tư duy logic', time: 10,
+        questions: [{type: 'choice', text: '1 + 1 = ?', options: ['1','2','3','4'], correct: 1, explanation: 'Toán học cơ bản.'}]
+    }];
+}
+
+// --- CORE FUNCTIONS ---
 const QuantumGuard = {
-    _str2buf: (str) => new TextEncoder().encode(str),
-    _buf2hex: (buf) => Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join(''),
     async hash(key) {
-        if(!window.crypto || !window.crypto.subtle) return "err";
-        const salt = this._str2buf(SECURE_VAULT._salt);
-        const keyMaterial = await crypto.subtle.importKey("raw", this._str2buf(key), { name: "PBKDF2" }, false, ["deriveBits", "deriveKey"]);
-        const derivedKey = await crypto.subtle.deriveKey({ name: "PBKDF2", salt: salt, iterations: 100000, hash: "SHA-256" }, keyMaterial, { name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"]);
-        return this._buf2hex(await crypto.subtle.exportKey("raw", derivedKey));
+        const msgBuffer = new TextEncoder().encode(key + SECURE_VAULT._salt);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+        return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
     }
 };
 
 const verifyKey = async () => {
     const input = $('#key-input').value.trim();
-    if (!input) return useFree();
-    $('#verify-btn').innerText = "ĐANG GIẢI MÃ...";
-    try {
-        const h = await QuantumGuard.hash(input);
-        if (SECURE_VAULT._ledger.zero.includes(h)) activateTier('zero', "🔓 ZERO GOD MODE");
-        else if (SECURE_VAULT._ledger.pro.includes(h)) activateTier('pro', "🔓 PRO ACTIVATED");
-        else { await new Promise(r=>setTimeout(r,1000)); alert('Mã sai!'); }
-    } catch(e) { alert('Lỗi bảo mật!'); } 
-    finally { $('#verify-btn').innerText = "XÁC THỰC KEY"; }
+    if (!input) return;
+    $('#verify-btn').innerText = "ĐANG KIỂM TRA...";
+    const h = await QuantumGuard.hash(input);
+    
+    if (SECURE_VAULT._ledger.zero.includes(h)) activateTier('zero', "Đã kích hoạt chế độ GOD MODE");
+    else if (SECURE_VAULT._ledger.pro.includes(h)) activateTier('pro', "Đã kích hoạt bản PRO");
+    else { alert('Sai mã kích hoạt!'); $('#verify-btn').innerText = "XÁC THỰC"; }
 };
 
-const useFree = () => activateTier('free', "Dùng bản Miễn phí");
-const activateTier = (t, msg) => { STATE.tier = t; localStorage.setItem('iqo_tk', btoa(t)); $('#key-modal').classList.add('hidden'); showToast(msg); updateUI(); initApp(); };
-const restoreSession = () => { try { const t = atob(localStorage.getItem('iqo_tk')); STATE.tier = ['zero','pro'].includes(t)?t:'free'; } catch(e){ STATE.tier='free'; } };
-
-// --- APP LOGIC ---
-const initApp = () => {
-    if(typeof EXAM_DATA === 'undefined') { alert('Lỗi dữ liệu! Kiểm tra data.js'); return; }
-    renderDashboard();
-    renderNav();
-    loadScratchpad();
-    // Anti-cheat
-    document.addEventListener("visibilitychange", () => {
-        if(document.hidden && STATE.exam) {
-            STATE.cheatCount++;
-            $('#cheating-warning').innerText = `⚠️ RỜI TAB (${STATE.cheatCount})`;
-            $('#cheating-warning').classList.remove('hidden');
-        }
-    });
+const activateTier = (t, msg) => {
+    STATE.tier = t;
+    localStorage.setItem('iqo_tier', btoa(t));
+    $('#key-modal').classList.add('hidden');
+    showToast(msg);
+    updateUI();
 };
+
+const useFree = () => { $('#key-modal').classList.add('hidden'); showToast("Sử dụng bản giới hạn"); };
 
 const updateUI = () => {
-    $('#user-tier-display').innerHTML = `<span class="tier-badge tier-${STATE.tier}">${STATE.tier.toUpperCase()}</span>`;
-    if(STATE.tier === 'free') $('#key-modal').classList.remove('hidden');
+    $('#user-tier-display').innerText = STATE.tier + " tier";
+    renderDashboard();
+    renderNav();
 };
 
 const renderDashboard = () => {
-    $('#page-title').innerText = "Thư viện đề thi";
-    $('#timer').classList.add('hidden'); $('#submit-btn').classList.add('hidden'); $('#cheating-warning').classList.add('hidden');
+    $('#page-title').innerText = "Thư viện";
     $('#content-area').innerHTML = `
-        <div class="max-w-5xl mx-auto enter">
-            <h1 class="text-2xl font-bold mb-6">Thư viện đề thi (${STATE.tier.toUpperCase()})</h1>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                ${EXAM_DATA.map(e => `
-                    <div onclick="startExam('${e.id}')" class="glass-panel p-6 rounded-2xl cursor-pointer hover:-translate-y-1 transition-all group border-t-4 ${e.id.includes('hoa')?'border-blue-500':'border-purple-500'}">
-                        <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-black/5">${e.category}</span>
-                        <h3 class="text-lg font-bold mt-3 mb-1">${e.title}</h3>
-                        <p class="text-xs text-[var(--sub)]">${e.subtitle}</p>
-                    </div>
-                `).join('')}
-            </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            ${EXAM_DATA.map(e => `
+                <div onclick="startExam('${e.id}')" class="glass-panel p-6 rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform">
+                    <span class="text-[10px] bg-blue-100 text-blue-700 px-2 py-1 rounded font-bold">${e.category}</span>
+                    <h3 class="text-lg font-bold mt-2">${e.title}</h3>
+                    <p class="text-sm text-gray-500">${e.subtitle}</p>
+                </div>
+            `).join('')}
         </div>`;
 };
 
 const renderNav = () => {
     $('#nav-list').innerHTML = EXAM_DATA.map(e => `
-        <div onclick="startExam('${e.id}')" class="p-3 rounded-xl cursor-pointer hover:bg-black/5 flex items-center gap-3 transition-all">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs ${e.id.includes('hoa')?'bg-blue-100 text-blue-600':'bg-purple-100 text-purple-600'}">${e.title[0]}</div>
-            <div class="hidden md:block truncate w-32 text-xs font-bold">${e.title}</div>
-        </div>`).join('');
+        <div onclick="startExam('${e.id}')" class="min-w-fit p-3 md:w-full rounded-xl cursor-pointer hover:bg-blue-50 flex items-center gap-3">
+            <div class="w-8 h-8 rounded bg-blue-600 text-white flex items-center justify-center font-bold text-xs">${e.title[0]}</div>
+            <span class="hidden md:block text-sm font-medium">${e.title}</span>
+        </div>
+    `).join('');
 };
 
 const startExam = (id) => {
-    STATE.exam = EXAM_DATA.find(e => e.id === id);
-    STATE.answers = {}; STATE.cheatCount = 0; STATE.time = STATE.exam.time * 60;
+    const exam = EXAM_DATA.find(e => e.id === id);
+    if (!exam) return;
+    STATE.exam = exam;
+    STATE.answers = {};
+    STATE.time = exam.time * 60;
     
-    $('#page-title').innerText = STATE.exam.title;
-    $('#timer').classList.remove('hidden'); $('#submit-btn').classList.remove('hidden');
+    $('#page-title').innerText = exam.title;
+    $('#timer').classList.remove('hidden');
+    $('#submit-btn').classList.remove('hidden');
     
-    renderQuestions(); startTimer(); showToast(`🏁 Bắt đầu: ${STATE.exam.title}`);
+    renderQuestions();
+    startTimer();
 };
 
 const renderQuestions = () => {
-    const qHTML = STATE.exam.questions.map((q, i) => `
-        <div class="glass-panel p-6 rounded-3xl mb-6 relative" id="q-${i}">
-            <div class="flex justify-between mb-4">
-                <span class="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center text-xs font-bold">${i+1}</span>
-                ${STATE.tier === 'zero' ? `<button onclick="showExpl(${i})" class="text-[10px] font-bold text-[var(--accent)] hover:underline">XEM LỜI GIẢI</button>` : ''}
+    let html = `<div class="max-w-3xl mx-auto space-y-8">`;
+    STATE.exam.questions.forEach((q, i) => {
+        html += `
+        <div class="glass-panel p-6 rounded-3xl" id="q-box-${i}">
+            <p class="font-bold mb-4 text-blue-600">Câu ${i+1}</p>
+            <p class="text-lg mb-6">${q.text}</p>
+            <div class="space-y-3">
+                ${q.options.map((opt, oi) => `
+                    <div onclick="selectAns(${i}, ${oi}, this)" class="option-row p-4 border-2 rounded-2xl cursor-pointer transition-all flex items-center gap-4">
+                        <div class="w-6 h-6 rounded-full border flex items-center justify-center text-xs font-bold">${String.fromCharCode(65+oi)}</div>
+                        <span>${opt}</span>
+                    </div>
+                `).join('')}
             </div>
-            <div class="text-[15px] font-medium mb-4 leading-relaxed">${q.text}</div>
-            <div class="grid gap-3">
-                ${q.type === 'choice' ? q.options.map((opt, oid) => `
-                    <div id="opt-${i}-${oid}" onclick="selectAns(${i}, ${oid}, this)" oncontextmenu="toggleStrike(event, this)" class="option-row p-3 rounded-xl cursor-pointer flex items-center gap-3 group">
-                        <div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center text-[10px] font-bold opt-idx group-hover:border-[var(--accent)]">${String.fromCharCode(65+oid)}</div>
-                        <div class="text-sm select-none">${opt}</div>
-                    </div>`).join('') 
-                : `<input onchange="inputAns(${i}, this.value)" type="text" placeholder="${q.placeholder}" class="w-full p-3 rounded-xl bg-black/5 outline-none focus:ring-2 focus:ring-[var(--accent)] text-sm">`}
-            </div>
-        </div>`).join('');
-    $('#content-area').innerHTML = `<div class="max-w-3xl mx-auto">${qHTML}</div>`;
+        </div>`;
+    });
+    html += `</div>`;
+    $('#content-area').innerHTML = html;
 };
 
-// --- INTERACTIONS ---
-const selectAns = (q, o, el) => {
-    if(el.classList.contains('strike')) return;
-    STATE.answers[q] = o;
-    Array.from(el.parentElement.children).forEach(c => {
-        c.classList.remove('selected');
-        c.querySelector('.opt-idx').className = 'w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center text-[10px] font-bold opt-idx group-hover:border-[var(--accent)]';
-    });
+const selectAns = (qi, oi, el) => {
+    STATE.answers[qi] = oi;
+    const parent = el.parentElement;
+    Array.from(parent.children).forEach(child => child.classList.remove('selected'));
     el.classList.add('selected');
-    el.querySelector('.opt-idx').className = 'w-6 h-6 rounded-full border-2 border-[var(--accent)] bg-[var(--accent)] text-white flex items-center justify-center text-[10px] font-bold opt-idx';
     updateProgress();
 };
-const inputAns = (q, v) => { STATE.answers[q] = v; updateProgress(); };
-const toggleStrike = (e, el) => { e.preventDefault(); el.classList.toggle('strike'); };
-const updateProgress = () => { $('#progress-bar').style.width = `${(Object.keys(STATE.answers).length / STATE.exam.questions.length)*100}%`; };
 
-// --- TIMER & SUBMIT ---
+const updateProgress = () => {
+    const done = Object.keys(STATE.answers).length;
+    const total = STATE.exam.questions.length;
+    $('#progress-bar').style.width = `${(done/total)*100}%`;
+};
+
 const startTimer = () => {
-    if(STATE.timer) clearInterval(STATE.timer);
+    if (STATE.timer) clearInterval(STATE.timer);
     STATE.timer = setInterval(() => {
         STATE.time--;
-        const m=Math.floor(STATE.time/60), s=STATE.time%60;
-        $('#timer').innerText = `${m}:${s<10?'0'+s:s}`;
-        if(STATE.time<=0) submitExam();
+        const m = Math.floor(STATE.time / 60);
+        const s = STATE.time % 60;
+        $('#timer').innerText = `${m}:${s < 10 ? '0' + s : s}`;
+        if (STATE.time <= 0) submitExam();
     }, 1000);
 };
 
 const submitExam = () => {
-    if(!confirm('Nộp bài?')) return;
     clearInterval(STATE.timer);
     let score = 0;
     STATE.exam.questions.forEach((q, i) => {
-        let correct = false;
-        if(q.type === 'choice') correct = (STATE.answers[i] === q.correct);
-        else if(q.type === 'input') correct = (STATE.answers[i] && STATE.answers[i].toString() == q.correct.toString());
-        if(correct) score++;
-        const card = $(`#q-${i}`);
-        card.style.borderLeft = `4px solid ${correct ? 'var(--success)' : 'var(--danger)'}`;
+        const isCorrect = STATE.answers[i] === q.correct;
+        if (isCorrect) score++;
+        const box = $(`#q-box-${i}`);
+        box.style.borderColor = isCorrect ? 'var(--success)' : 'var(--danger)';
+        
+        // Hiện giải thích nếu không phải bản free
         if(STATE.tier !== 'free') {
-            const div = document.createElement('div');
-            div.className = "mt-4 p-4 rounded-xl bg-black/5 text-sm";
-            div.innerHTML = `<b class="${correct?'text-green-600':'text-red-600'}">${correct?'ĐÚNG':'SAI'}</b>. ${q.explanation}`;
-            card.appendChild(div);
+            const expl = document.createElement('div');
+            expl.className = "mt-4 p-4 bg-gray-50 rounded-xl text-sm italic";
+            expl.innerHTML = `<b>Giải thích:</b> ${q.explanation}`;
+            box.appendChild(expl);
         }
     });
-    if(score/STATE.exam.questions.length > 0.8) fireConfetti();
-    alert(`Kết quả: ${score}/${STATE.exam.questions.length}`);
-    $('#submit-btn').classList.add('hidden');
+    alert(`Hoàn thành! Điểm của bạn: ${score}/${STATE.exam.questions.length}`);
 };
 
-// --- FEATURES ---
-const showExpl = (i) => { $('#expl-content').innerHTML = STATE.exam.questions[i].explanation; $('#expl-modal').classList.remove('translate-y-full'); };
-const closeExpl = () => $('#expl-modal').classList.add('translate-y-full');
-const toggleDarkMode = () => { document.documentElement.classList.toggle('dark'); showToast("Đã đổi giao diện"); };
-const toggleFocusMode = () => { document.body.classList.toggle('focus-mode'); showToast("Zen Mode"); };
-const fireConfetti = () => {
-    const c = $('#confetti-container'); c.classList.remove('hidden');
-    c.innerHTML = Array(30).fill(0).map(()=>`<div style="position:absolute;left:${Math.random()*100}vw;top:-10px;width:10px;height:10px;background:red;animation:confetti ${2+Math.random()}s linear infinite"></div>`).join('');
-    setTimeout(()=>c.classList.add('hidden'), 5000);
+const showToast = (m) => {
+    const t = $('#toast-box');
+    t.innerText = m;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
 };
-const showToast = (m) => { const t=$('#toast-box'); t.innerText=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000); };
-const toggleKeyModal = () => $('#key-modal').classList.remove('hidden');
-const clearScratchpad = () => { $('#scratchpad').value = ''; localStorage.removeItem('iqo_sc'); };
-const loadScratchpad = () => { const v=localStorage.getItem('iqo_sc'); if(v) $('#scratchpad').value=v; $('#scratchpad').addEventListener('input', e=>localStorage.setItem('iqo_sc',e.target.value)); };
-const resetApp = () => { if(confirm('Reset?')) { localStorage.clear(); location.reload(); } };
 
-// START
-restoreSession();
-if(STATE.tier !== 'free') $('#key-modal').classList.add('hidden');
+const toggleDarkMode = () => document.documentElement.classList.toggle('dark');
+const toggleFocusMode = () => document.body.classList.toggle('focus-mode');
+const resetApp = () => { if(confirm('Xóa dữ liệu và làm lại từ đầu?')) { localStorage.clear(); location.reload(); } };
+
+// --- INITIALIZE ---
+window.onload = () => {
+    try {
+        const saved = localStorage.getItem('iqo_tier');
+        if (saved) STATE.tier = atob(saved);
+    } catch(e) {}
+    
+    if (STATE.tier === 'free') {
+        $('#key-modal').classList.remove('hidden');
+    }
+    updateUI();
+};
+
+document.addEventListener("visibilitychange", () => {
+    if (document.hidden && STATE.exam) {
+        STATE.cheatCount++;
+        $('#cheating-warning').innerText = `⚠️ CẢNH BÁO (${STATE.cheatCount})`;
+        $('#cheating-warning').classList.remove('hidden');
+    }
+});
 </script>
 </body>
 </html>
