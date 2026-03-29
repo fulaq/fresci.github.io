@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmEdu - Hệ thống Khảo sát Chất lượng 2026</title>
+    <style>
+        :root {
+            --apple-blue: #007AFF;
+            --apple-bg: rgba(255, 255, 255, 0.7);
+            --apple-glass: blur(25px) saturate(180%);
+            --farmedu-gold: #D4AF37;
+            --text-main: #1d1d1f;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+            transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        body {
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            background-attachment: fixed;
+            margin: 0;
+            padding: 20px;
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        /* Watermark FarmEdu */
+        body::before {
+            content: "FARMEDU 2026";
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 10rem;
+            font-weight: 900;
+            color: rgba(0, 0, 0, 0.03);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .macos-window {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--apple-bg);
+            backdrop-filter: var(--apple-glass);
+            -webkit-backdrop-filter: var(--apple-glass);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header macOS */
+        .window-header {
+            padding: 15px 25px;
+            background: rgba(255, 255, 255, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .traffic-lights {
+            display: flex;
+            gap: 8px;
+        }
+
+        .light {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .red { background: #FF5F57; }
+        .yellow { background: #FFBD2E; }
+        .green { background: #28C840; }
+
+        .brand {
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--apple-blue);
+        }
+
+        /* Main Content */
+        .content {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 20px;
+        }
+
+        .timer-card {
+            background: white;
+            padding: 20px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        #timer {
+            font-size: 2rem;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .nav-item {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .nav-item.done { background: #34c759; color: white; }
+        .nav-item.active { border: 2px solid var(--apple-blue); }
+
+        /* Questions */
+        .question-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--apple-blue);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .q-row {
+            background: rgba(255,255,255,0.5);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .q-num { font-weight: 600; width: 30px; }
+
+        input[type="text"] {
+            padding: 8px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(0,0,0,0.1);
+            outline: none;
+            width: 100%;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--apple-blue);
+            box-shadow: 0 0 0 3px rgba(0,122,255,0.2);
+        }
+
+        .options-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .option-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+        }
+
+        .option-btn.selected {
+            background: var(--apple-blue);
+            color: white;
+            border-color: var(--apple-blue);
+        }
+
+        .footer-action {
+            padding: 30px;
+            text-align: center;
+            background: rgba(255,255,255,0.3);
+        }
+
+        .btn-submit {
+            background: var(--apple-blue);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 100px;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,122,255,0.3);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px rgba(0,122,255,0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content { grid-template-columns: 1fr; }
+            .sidebar { order: -1; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="macos-window">
+    <div class="window-header">
+        <div class="traffic-lights">
+            <div class="light red"></div>
+            <div class="light yellow"></div>
+            <div class="light green"></div>
+        </div>
+        <div class="brand">FARMEDU • KSCL NĂM HỌC 2025 - 2026</div>
+        <div style="width: 50px;"></div>
+    </div>
+
+    <div class="content">
+        <div class="sidebar">
+            <div class="timer-card">
+                <div style="font-size: 0.8rem; opacity: 0.6;">THỜI GIAN CÒN LẠI</div>
+                <div id="timer">15:00</div>
+            </div>
+            <div class="timer-card">
+                <div style="font-size: 0.8rem; opacity: 0.6; margin-bottom: 10px;">TIẾN ĐỘ</div>
+                <div class="nav-grid" id="navGrid">
+                    </div>
+            </div>
+        </div>
+
+        <div id="examForm">
+            <div class="question-section">
+                <div class="section-title">I. TƯ DUY CHẬM <span>(6 câu)</span></div>
+                <div id="section1"></div>
+            </div>
+
+            <div class="question-section">
+                <div class="section-title">II. TƯ DUY NHANH <span>(8 câu)</span></div>
+                <div id="section2"></div>
+            </div>
+
+            <div class="question-section">
+                <div class="section-title">III. TƯ DUY NGÔN NGỮ <span>(10 câu)</span></div>
+                <div id="section3"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-action">
+        <button class="btn-submit" onclick="submitExam()">NỘP BÀI & SAO CHÉP ĐÁP ÁN</button>
+        <p style="font-size: 0.8rem; opacity: 0.5; margin-top: 15px;">Dữ liệu sẽ được sao chép vào Clipboard để Giáo viên chấm điểm.</p>
+    </div>
+</div>
+
+<script>
+    // Cấu trúc đề bài dựa trên PDF
+    const examStructure = [
+        { section: 1, count: 6, type: 'mcq' }, // A, B, C, D
+        { section: 2, count: 8, type: 'mixed', 
+          special: { 
+            1: 'text', 3: 'text', 5: 'text', 8: 'text', // Trả lời ngắn
+            4: 'tf', // Đúng sai (a, b, c, d)
+            2: 'mcq', 6: 'mcq', 7: 'mcq' 
+          } 
+        },
+        { section: 3, count: 10, type: 'mcq' }
+    ];
+
+    const answers = {};
+
+    // Khởi tạo giao diện
+    function init() {
+        const navGrid = document.getElementById('navGrid');
+        let globalIdx = 1;
+
+        examStructure.forEach(sec => {
+            const container = document.getElementById(`section${sec.section}`);
+            
+            for (let i = 1; i <= sec.count; i++) {
+                const qId = `S${sec.section}_Q${i}`;
+                
+                // Tạo Nav Item
+                const navItem = document.createElement('div');
+                navItem.className = 'nav-item';
+                navItem.id = `nav_${qId}`;
+                navItem.innerText = globalIdx;
+                navGrid.appendChild(navItem);
+
+                // Tạo câu hỏi
+                const row = document.createElement('div');
+                row.className = 'q-row';
+                row.innerHTML = `<div class="q-num">${globalIdx}.</div>`;
+
+                let qType = sec.type;
+                if (sec.special && sec.special[i]) qType = sec.special[i];
+
+                if (qType === 'mcq') {
+                    row.innerHTML += `
+                        <div class="options-group">
+                            ${['A', 'B', 'C', 'D'].map(opt => `
+                                <button class="option-btn" onclick="selectOpt('${qId}', '${opt}')" id="btn_${qId}_${opt}">${opt}</button>
+                            `).join('')}
+                        </div>
+                    `;
+                } else if (qType === 'tf') {
+                    row.innerHTML += `
+                        <div style="display: flex; flex-direction: column; gap: 5px; width: 100%;">
+                            ${['a', 'b', 'c', 'd'].map(sub => `
+                                <div style="display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 5px 10px; border-radius: 5px;">
+                                    <span>${sub})</span>
+                                    <div class="options-group">
+                                        <button class="option-btn" style="width: 60px" onclick="selectOpt('${qId}_${sub}', 'Đúng')" id="btn_${qId}_${sub}_Đúng">Đúng</button>
+                                        <button class="option-btn" style="width: 60px" onclick="selectOpt('${qId}_${sub}', 'Sai')" id="btn_${qId}_${sub}_Sai">Sai</button>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                } else {
+                    row.innerHTML += `<input type="text" placeholder="Nhập đáp án..." oninput="saveText('${qId}', this.value)">`;
+                }
+
+                container.appendChild(row);
+                globalIdx++;
+            }
+        });
+
+        startTimer(15 * 60);
+    }
+
+    function selectOpt(qId, val) {
+        answers[qId] = val;
+        // Reset UI nút
+        const btns = document.querySelectorAll(`[id^="btn_${qId}_"]`);
+        btns.forEach(b => b.classList.remove('selected'));
+        document.getElementById(`btn_${qId}_${val}`).classList.add('selected');
+        
+        updateNavStatus(qId);
+    }
+
+    function saveText(qId, val) {
+        answers[qId] = val;
+        updateNavStatus(qId);
+    }
+
+    function updateNavStatus(qId) {
+        // Map qId về số thứ tự để update nav grid
+        const navTarget = document.getElementById(`nav_${qId.split('_')[0]}_${qId.split('_')[1]}`);
+        if (answers[qId]) navTarget.classList.add('done');
+    }
+
+    function startTimer(duration) {
+        let timer = duration, minutes, seconds;
+        const display = document.querySelector('#timer');
+        const interval = setInterval(() => {
+            minutes = parseInt(timer / 60, 10);
+            seconds = parseInt(timer % 60, 10);
+
+            display.textContent = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+
+            if (--timer < 0) {
+                clearInterval(interval);
+                alert("Hết giờ làm bài!");
+                submitExam();
+            }
+            if (timer < 60) display.style.color = "#FF5F57";
+        }, 1000);
+    }
+
+    function submitExam() {
+        // Tạo chuỗi kết quả
+        const timestamp = new Date().toLocaleString();
+        let resultString = `--- FARMEDU EXAM RESULT ---\n`;
+        resultString += `Thời điểm nộp: ${timestamp}\n`;
+        resultString += `---------------------------\n`;
+        
+        // Sắp xếp và đưa vào chuỗi
+        Object.keys(answers).sort().forEach(key => {
+            resultString += `${key}: ${answers[key]}\n`;
+        });
+
+        // Copy to clipboard
+        navigator.clipboard.writeText(resultString).then(() => {
+            alert("Bài làm đã được sao chép vào Clipboard!\nHãy gửi mã này cho giáo viên để chấm điểm.");
+        });
+        
+        console.log(resultString);
+    }
+
+    init();
+</script>
+
+</body>
+</html>
