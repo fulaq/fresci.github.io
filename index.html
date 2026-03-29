@@ -1,273 +1,435 @@
 <!DOCTYPE html>
-<html lang="vi" class="antialiased">
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Phòng thi ảo IQO</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <script>
-        const SECURE_VAULT = {
-            _salt: "iqo_secret_salt_2024",
-            _ledger: {
-                zero: ["5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"], // Ví dụ mã hash của 'password'
-                pro: []
-            }
-        };
-    </script>
-
-    <script src="data.js" onerror="console.warn('Cảnh báo: Không tìm thấy data.js, đang sử dụng dữ liệu mẫu.')"></script>
-
-    <style>
-        :root {
-            --bg: #f5f5f7; --card: #ffffff; --text: #1d1d1f; --sub: #86868b;
-            --accent: #0071e3; --success: #34c759; --danger: #ff3b30;
-            --glass: rgba(255, 255, 255, 0.85);
-            --font-main: 'Inter', system-ui, -apple-system, sans-serif;
-        }
-        .dark {
-            --bg: #000000; --card: #1c1c1e; --text: #f5f5f7; --sub: #98989d;
-            --accent: #0a84ff; --glass: rgba(28, 28, 30, 0.85);
-        }
-        body { font-family: var(--font-main); background: var(--bg); color: var(--text); transition: background 0.3s ease; }
-        .glass-panel { background: var(--glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(128,128,128,0.1); }
-        .option-row.selected { background: rgba(0,113,227,0.1); border-color: var(--accent); }
-        .option-row.strike { opacity: 0.3; text-decoration: line-through; pointer-events: none; }
-        #toast-box { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-200%); z-index: 1000; transition: 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28); }
-        #toast-box.show { transform: translateX(-50%) translateY(0); }
-        .focus-mode .sidebar, .focus-mode header { display: none !important; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>IQO - Khoa Học Tự Do</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif:wght@400;600&display=swap" rel="stylesheet">
+<script src="data.js"></script>
+<style>
+:root{--bg:#f5f5f7;--sidebar:#fbfbfd;--card:#ffffff;--text:#1d1d1f;--glass:rgba(255,255,255,0.8);--border:rgba(0,0,0,0.08);--accent:#0071e3;--shadow:0 4px 12px rgba(0,0,0,0.03);--correct:#34c759;--wrong:#ff3b30}
+.dark{--bg:#1e1e1e;--sidebar:#2c2c2e;--card:#3a3a3c;--text:#f5f5f7;--glass:rgba(44,44,46,0.8);--border:rgba(255,255,255,0.12);--accent:#0a84ff;--shadow:0 4px 12px rgba(0,0,0,0.2)}
+body{font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;background:var(--bg);color:var(--text);height:100vh;overflow:hidden;transition:background 0.3s,color 0.3s}
+.glass-panel{background:var(--glass);backdrop-filter:blur(25px);-webkit-backdrop-filter:blur(25px);border-bottom:1px solid var(--border)}
+.sidebar{width:260px;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;transition:transform 0.3s cubic-bezier(0.25,1,0.5,1)}
+.right-sidebar{width:280px;background:var(--sidebar);border-left:1px solid var(--border);display:flex;flex-direction:column;transition:transform 0.3s}
+.card{background:var(--card);border-radius:16px;box-shadow:var(--shadow);border:1px solid var(--border);transition:transform 0.2s}
+.exam-font{font-family:'Noto Serif',serif;font-size:1.1rem;line-height:1.7;white-space:normal}
+.inline-img{display:inline-block;vertical-align:middle;margin:0 4px;max-height:1.5em;width:auto}
+.block-img{display:block;max-width:100%;margin:12px auto;border-radius:8px;border:1px solid var(--border)}
+.btn-apple{background:var(--accent);color:#fff;border-radius:8px;padding:6px 16px;font-size:13px;font-weight:500;transition:0.2s}
+.btn-apple:active{opacity:0.8;transform:scale(0.98)}
+.nav-item{padding:8px 12px;margin:2px 10px;border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text);transition:0.2s}
+.nav-item:hover{background:rgba(0,0,0,0.05)}
+.nav-item.active{background:rgba(0,113,227,0.12);color:var(--accent);font-weight:600}
+.nav-item svg {width: 18px; height: 18px; fill: currentColor;}
+.q-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:10px}
+.q-cell{aspect-ratio:1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;cursor:pointer;background:var(--bg);border:1px solid var(--border);transition:0.2s;color:var(--text)}
+.q-cell:hover{background:var(--border)}
+.q-cell.answered{background:var(--accent);color:#fff;border-color:var(--accent)}
+.q-cell.correct{background:var(--correct);color:#fff;border-color:var(--correct)}
+.q-cell.wrong{background:var(--wrong);color:#fff;border-color:var(--wrong)}
+.q-cell.flagged{border-color:#ff9f0a;color:#ff9f0a;background:rgba(255,159,10,0.1)}
+.option-row{display:flex;padding:12px;border:1px solid var(--border);border-radius:10px;margin-top:8px;cursor:pointer;transition:0.2s;align-items:center}
+.option-row:hover{background:var(--bg)}
+.option-row.selected{border-color:var(--accent);background:rgba(0,113,227,0.05)}
+.option-row.correct{border-color:var(--correct);background:rgba(52,199,89,0.1)}
+.option-row.wrong{border-color:var(--wrong);background:rgba(255,59,48,0.1)}
+.input-field{width:100%;padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);margin-top:8px;font-size:14px}
+.input-field:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,113,227,0.2)}
+.tf-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
+.tf-btn{padding:6px 16px;border-radius:6px;border:1px solid var(--border);font-size:12px;font-weight:600;cursor:pointer;transition:0.2s;background:var(--bg);color:var(--text)}
+.tf-btn.active-true{background:var(--accent);color:white;border-color:var(--accent)}
+.tf-btn.active-false{background:var(--accent);color:white;border-color:var(--accent)}
+.tf-btn.correct{background:var(--correct);color:white;border-color:var(--correct)}
+.tf-btn.wrong{background:var(--wrong);color:white;border-color:var(--wrong)}
+.hidden{display:none!important}
+@media(max-width:1024px){.right-sidebar{display:none}}
+@media(max-width:768px){.sidebar{position:fixed;height:100%;z-index:50;transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}}
+::-webkit-scrollbar{width:0px}
+</style>
 </head>
+<body>
 
-<body class="flex flex-col md:flex-row h-screen overflow-hidden">
-
-    <div id="toast-box" class="bg-black text-white px-6 py-2 rounded-full text-sm font-medium shadow-2xl">Thông báo</div>
-
-    <div id="key-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm hidden">
-        <div class="glass-panel w-[90%] max-w-sm rounded-3xl p-8 text-center">
-            <h3 class="text-xl font-bold mb-2">🛡️ IQO SHIELD</h3>
-            <p class="text-xs text-[var(--sub)] mb-6">Nhập mã kích hoạt để mở khóa toàn bộ tính năng</p>
-            <input type="text" id="key-input" placeholder="Nhập Key tại đây..." class="w-full p-4 rounded-xl bg-gray-100 dark:bg-gray-800 mb-4 text-center font-mono focus:ring-2 focus:ring-blue-500 outline-none">
-            <button onclick="verifyKey()" id="verify-btn" class="w-full py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all">XÁC THỰC</button>
-            <button onclick="useFree()" class="mt-4 text-xs text-[var(--sub)] underline">Tiếp tục dùng miễn phí</button>
+<div class="flex h-full">
+    <!-- Left Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="h-12 flex items-center px-4 gap-2 mt-2">
+            <div class="flex gap-2"><div class="w-3 h-3 rounded-full bg-red-500"></div><div class="w-3 h-3 rounded-full bg-yellow-500"></div><div class="w-3 h-3 rounded-full bg-green-500"></div></div>
         </div>
-    </div>
-
-    <aside class="sidebar w-full md:w-[280px] glass-panel flex flex-col z-40 h-16 md:h-full fixed md:relative bottom-0 md:top-0 order-2 md:order-1">
-        <div class="hidden md:flex p-6 flex-col gap-4">
-            <div class="flex gap-2">
-                <div onclick="resetApp()" class="w-3 h-3 rounded-full bg-red-500 cursor-pointer"></div>
-                <div onclick="toggleDarkMode()" class="w-3 h-3 rounded-full bg-yellow-500 cursor-pointer"></div>
-                <div onclick="toggleFocusMode()" class="w-3 h-3 rounded-full bg-green-500 cursor-pointer"></div>
+        <div class="px-4 mb-4 flex items-center gap-3">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="32" height="32" rx="8" fill="url(#paint0_linear)"/>
+                <path d="M16 8L24 24H8L16 8Z" fill="white"/>
+                <defs><linearGradient id="paint0_linear" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse"><stop stop-color="#007AFF"/><stop offset="1" stop-color="#0055B3"/></linearGradient></defs>
+            </svg>
+            <div><div class="text-lg font-semibold tracking-tight">IQO</div><div class="text-[10px] opacity-50 font-medium">KHOA HỌC TỰ DO</div></div>
+        </div>
+        <nav class="flex-1 overflow-y-auto">
+            <div class="px-4 mb-1 text-[11px] font-bold opacity-40 uppercase">Thư viện</div>
+            <div class="nav-item active" onclick="switchView('dashboard')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+                Tổng quan
             </div>
-            <div class="mt-4">
-                <h1 class="font-black text-xl tracking-tighter">IQO ULTRA</h1>
-                <div id="user-tier-display" class="text-[10px] font-bold opacity-50 uppercase">FREE TIER</div>
+            <div class="nav-item" onclick="showModeSelection('thpt-hoa-338-final')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                Đề Hóa 0338
+            </div>
+        </nav>
+        <div class="p-4 border-t border-[var(--border)]">
+            <div class="flex items-center justify-between bg-[var(--bg)] p-2 rounded-lg cursor-pointer" onclick="toggleTheme()">
+                <span class="text-xs font-medium ml-1">Giao diện</span>
+                <div class="w-8 h-4 bg-gray-300 rounded-full relative transition duration-300 dark:bg-green-500"><div class="w-3 h-3 bg-white rounded-full absolute top-0.5 left-0.5 transition duration-300 transform dark:translate-x-4"></div></div>
             </div>
         </div>
-        <nav id="nav-list" class="flex-1 overflow-x-auto md:overflow-y-auto flex md:flex-col p-2 gap-1"></nav>
     </aside>
+    <div class="fixed inset-0 bg-black/20 z-40 hidden md:hidden backdrop-blur-sm" id="overlay" onclick="toggleSidebar()"></div>
 
-    <main class="flex-1 flex flex-col h-full overflow-hidden order-1 md:order-2">
-        <header class="h-14 glass-panel flex items-center justify-between px-6 shrink-0">
-            <h2 id="page-title" class="font-bold truncate">Đang tải...</h2>
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col relative min-w-0 bg-[var(--bg)]">
+        <header class="glass-panel sticky top-0 z-30 h-12 flex items-center justify-between px-4 shrink-0">
             <div class="flex items-center gap-3">
-                <div id="cheating-warning" class="hidden text-[10px] bg-red-500 text-white px-2 py-1 rounded-md animate-pulse">CHỐNG GIAN LẬN</div>
-                <div id="timer" class="hidden font-mono font-bold bg-black text-white px-3 py-1 rounded-md">00:00</div>
-                <button onclick="submitExam()" id="submit-btn" class="hidden px-4 py-1.5 bg-green-600 text-white rounded-full text-xs font-bold hover:bg-green-700">NỘP BÀI</button>
+                <button onclick="toggleSidebar()" class="md:hidden text-xl opacity-70">􀆊</button>
+                <h2 id="page-title" class="font-semibold text-sm opacity-80">Tổng quan</h2>
+            </div>
+            <div id="exam-controls" class="hidden flex items-center gap-3">
+                <button onclick="toggleMap()" class="lg:hidden text-xl opacity-70">􀈂</button>
+                <div class="text-xs font-mono font-medium opacity-60" id="timer">00:00</div>
+                <button onclick="submitExam()" class="btn-apple" id="submit-btn">Nộp bài</button>
             </div>
         </header>
 
-        <div class="h-1 w-full bg-gray-200"><div id="progress-bar" class="h-full bg-blue-600 w-0 transition-all duration-500"></div></div>
-
-        <div id="content-area" class="flex-1 overflow-y-auto p-4 md:p-10 pb-32">
+        <!-- Dashboard View -->
+        <div id="dashboard-view" class="flex-1 overflow-y-auto p-8">
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-8 text-center"><h1 class="text-3xl font-bold mb-2">Chào mừng trở lại.</h1><p class="text-sm opacity-60">Sẵn sàng chinh phục kiến thức hôm nay?</p></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="card p-5 cursor-pointer hover:bg-[var(--card)]" onclick="showModeSelection('thpt-hoa-338-final')">
+                        <div class="flex justify-between items-start mb-3"><span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-600 uppercase">Mới nhất</span><span class="text-xs opacity-40">50 phút</span></div>
+                        <h3 class="text-lg font-semibold mb-1">Hóa Học - Mã đề 0338</h3>
+                        <p class="text-xs opacity-50 mb-4">THPT QG 2025 • Chuẩn cấu trúc</p>
+                        <div class="text-xs font-medium text-[var(--accent)] flex items-center gap-1">Làm bài ngay <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+                    </div>
+                </div>
             </div>
+        </div>
+
+        <!-- Mode Selection Modal -->
+        <div id="mode-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
+            <div class="card p-6 w-96 max-w-[90%] animate-scale">
+                <h3 class="text-lg font-bold mb-2">Chọn chế độ</h3>
+                <p class="text-sm opacity-60 mb-6">Bạn muốn làm bài thi thử hay luyện tập từng câu?</p>
+                <div class="flex flex-col gap-3">
+                    <button onclick="startExam('exam')" class="btn-apple w-full py-3 bg-blue-600 hover:bg-blue-700">⏱ Thi thử (Có tính giờ)</button>
+                    <button onclick="startExam('practice')" class="btn-apple w-full py-3 bg-gray-500 hover:bg-gray-600">📖 Luyện tập (Biết đáp án ngay)</button>
+                    <button onclick="$('mode-modal').classList.add('hidden')" class="text-xs text-center mt-2 opacity-50 hover:opacity-100">Hủy bỏ</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exam View -->
+        <div id="exam-view" class="hidden flex-1 flex h-full overflow-hidden">
+            <div class="flex-1 overflow-y-auto p-4 md:p-8 scroll-smooth" id="question-container"></div>
+        </div>
     </main>
 
-<script>
-const $ = s => document.querySelector(s);
-let STATE = { tier: 'free', exam: null, answers: {}, timer: null, time: 0, cheatCount: 0 };
+    <!-- Right Sidebar (Question Map) -->
+    <aside class="right-sidebar hidden lg:flex" id="right-sidebar">
+        <div class="p-4 border-b border-[var(--border)] text-xs font-semibold opacity-60 text-center">Bảng câu hỏi</div>
+        <div class="flex-1 overflow-y-auto"><div class="q-grid" id="palette"></div></div>
+        <div class="p-4 border-t border-[var(--border)] text-[10px] opacity-40 text-center">
+            <div class="flex justify-center gap-3 mb-2">
+                <span class="flex items-center gap-1"><div class="w-2 h-2 rounded-full bg-[var(--accent)]"></div> Đã làm</span>
+                <span class="flex items-center gap-1"><div class="w-2 h-2 rounded-full border border-[var(--border)]"></div> Chưa làm</span>
+            </div>
+        </div>
+    </aside>
+</div>
 
-// Giả lập EXAM_DATA nếu file data.js bị lỗi
-if (typeof EXAM_DATA === 'undefined') {
-    window.EXAM_DATA = [{
-        id: 'demo-1', title: 'Đề mẫu IQ', category: 'IQ', subtitle: 'Kiểm tra tư duy logic', time: 10,
-        questions: [{type: 'choice', text: '1 + 1 = ?', options: ['1','2','3','4'], correct: 1, explanation: 'Toán học cơ bản.'}]
-    }];
+<script>
+let currentExam=null, timerInterval, userAnswers={}, flaggedQuestions=new Set(), currentMode='exam', selectedExamId=null;
+const $=id=>document.getElementById(id);
+
+function init(){
+    if(localStorage.getItem('theme')==='dark') document.documentElement.classList.add('dark');
 }
 
-// --- CORE FUNCTIONS ---
-const QuantumGuard = {
-    async hash(key) {
-        const msgBuffer = new TextEncoder().encode(key + SECURE_VAULT._salt);
-        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-        return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+function toggleTheme(){
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme',document.documentElement.classList.contains('dark')?'dark':'light');
+}
+
+function toggleSidebar(){
+    $('sidebar').classList.toggle('open');
+    $('overlay').classList.toggle('hidden');
+}
+
+function toggleMap(){
+    const rs = $('right-sidebar');
+    if(rs.classList.contains('hidden')){
+        rs.classList.remove('hidden');
+        rs.style.position = 'fixed';
+        rs.style.right = '0';
+        rs.style.height = '100%';
+        rs.style.zIndex = '60';
+        rs.style.boxShadow = '-5px 0 20px rgba(0,0,0,0.1)';
+    } else {
+        rs.classList.add('hidden');
+        rs.style = '';
     }
-};
+}
 
-const verifyKey = async () => {
-    const input = $('#key-input').value.trim();
-    if (!input) return;
-    $('#verify-btn').innerText = "ĐANG KIỂM TRA...";
-    const h = await QuantumGuard.hash(input);
+function switchView(view){
+    if(view==='dashboard'){
+        $('dashboard-view').classList.remove('hidden');
+        $('exam-view').classList.add('hidden');
+        $('exam-controls').classList.add('hidden');
+        $('right-sidebar').classList.add('hidden');
+        $('right-sidebar').classList.remove('lg:flex');
+        $('page-title').innerText="Tổng quan";
+        clearInterval(timerInterval);
+    }
+}
+
+function showModeSelection(id){
+    selectedExamId = id;
+    $('mode-modal').classList.remove('hidden');
+}
+
+function startExam(mode){
+    currentMode = mode;
+    $('mode-modal').classList.add('hidden');
+    currentExam = EXAM_DATA.find(e=>e.id===selectedExamId);
     
-    if (SECURE_VAULT._ledger.zero.includes(h)) activateTier('zero', "Đã kích hoạt chế độ GOD MODE");
-    else if (SECURE_VAULT._ledger.pro.includes(h)) activateTier('pro', "Đã kích hoạt bản PRO");
-    else { alert('Sai mã kích hoạt!'); $('#verify-btn').innerText = "XÁC THỰC"; }
-};
+    $('dashboard-view').classList.add('hidden');
+    $('exam-view').classList.remove('hidden');
+    $('exam-view').classList.add('flex');
+    $('exam-controls').classList.remove('hidden');
+    $('right-sidebar').classList.remove('hidden');
+    $('right-sidebar').classList.add('lg:flex');
+    $('page-title').innerText = currentExam.title + (mode==='practice' ? " (Luyện tập)" : "");
+    
+    userAnswers={}; flaggedQuestions=new Set();
+    $('submit-btn').style.display = mode === 'exam' ? 'block' : 'none';
+    $('timer').style.display = mode === 'exam' ? 'block' : 'none';
 
-const activateTier = (t, msg) => {
-    STATE.tier = t;
-    localStorage.setItem('iqo_tier', btoa(t));
-    $('#key-modal').classList.add('hidden');
-    showToast(msg);
-    updateUI();
-};
+    renderQuestions(); 
+    renderPalette(); 
+    
+    if(mode === 'exam') startTimer(currentExam.time*60);
+    if(window.innerWidth<768) toggleSidebar();
+}
 
-const useFree = () => { $('#key-modal').classList.add('hidden'); showToast("Sử dụng bản giới hạn"); };
-
-const updateUI = () => {
-    $('#user-tier-display').innerText = STATE.tier + " tier";
-    renderDashboard();
-    renderNav();
-};
-
-const renderDashboard = () => {
-    $('#page-title').innerText = "Thư viện";
-    $('#content-area').innerHTML = `
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            ${EXAM_DATA.map(e => `
-                <div onclick="startExam('${e.id}')" class="glass-panel p-6 rounded-2xl cursor-pointer hover:scale-[1.02] transition-transform">
-                    <span class="text-[10px] bg-blue-100 text-blue-700 px-2 py-1 rounded font-bold">${e.category}</span>
-                    <h3 class="text-lg font-bold mt-2">${e.title}</h3>
-                    <p class="text-sm text-gray-500">${e.subtitle}</p>
-                </div>
-            `).join('')}
-        </div>`;
-};
-
-const renderNav = () => {
-    $('#nav-list').innerHTML = EXAM_DATA.map(e => `
-        <div onclick="startExam('${e.id}')" class="min-w-fit p-3 md:w-full rounded-xl cursor-pointer hover:bg-blue-50 flex items-center gap-3">
-            <div class="w-8 h-8 rounded bg-blue-600 text-white flex items-center justify-center font-bold text-xs">${e.title[0]}</div>
-            <span class="hidden md:block text-sm font-medium">${e.title}</span>
+function renderQuestions(){
+    $('question-container').innerHTML = currentExam.questions.map((q,idx)=>`
+        <div class="card p-6 mb-4 scroll-mt-16" id="q-${idx}">
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-xs font-bold opacity-40 uppercase tracking-wide">Câu ${q.id}</span>
+                <button onclick="toggleFlag(${idx})" class="opacity-30 hover:opacity-100 transition text-yellow-500" id="flag-btn-${idx}">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
+                </button>
+            </div>
+            <div class="exam-font mb-4">${q.text}</div>
+            ${q.img ? `<img src="${APP_CONFIG.imgPath}${q.img}" class="block-img" loading="lazy">` : ''}
+            ${renderQuestionBody(q, idx)}
+            <div id="feedback-${idx}" class="hidden mt-4 p-3 rounded-lg text-sm bg-gray-100 dark:bg-gray-800"></div>
         </div>
     `).join('');
-};
+}
 
-const startExam = (id) => {
-    const exam = EXAM_DATA.find(e => e.id === id);
-    if (!exam) return;
-    STATE.exam = exam;
-    STATE.answers = {};
-    STATE.time = exam.time * 60;
-    
-    $('#page-title').innerText = exam.title;
-    $('#timer').classList.remove('hidden');
-    $('#submit-btn').classList.remove('hidden');
-    
-    renderQuestions();
-    startTimer();
-};
+function renderQuestionBody(q, idx) {
+    if (q.type === 'choice') return renderChoices(q, idx);
+    if (q.type === 'input') return renderInput(q, idx);
+    if (q.type === 'group') return renderGroup(q, idx);
+    return '';
+}
 
-const renderQuestions = () => {
-    let html = `<div class="max-w-3xl mx-auto space-y-8">`;
-    STATE.exam.questions.forEach((q, i) => {
-        html += `
-        <div class="glass-panel p-6 rounded-3xl" id="q-box-${i}">
-            <p class="font-bold mb-4 text-blue-600">Câu ${i+1}</p>
-            <p class="text-lg mb-6">${q.text}</p>
-            <div class="space-y-3">
-                ${q.options.map((opt, oi) => `
-                    <div onclick="selectAns(${i}, ${oi}, this)" class="option-row p-4 border-2 rounded-2xl cursor-pointer transition-all flex items-center gap-4">
-                        <div class="w-6 h-6 rounded-full border flex items-center justify-center text-xs font-bold">${String.fromCharCode(65+oi)}</div>
-                        <span>${opt}</span>
-                    </div>
-                `).join('')}
+function renderChoices(q,idx){
+    return `<div class="grid grid-cols-1 gap-1">${q.options.map((opt,i)=>`
+        <div class="option-row group" id="opt-${idx}-${i}" onclick="selectAnswer(${idx},${i},this)">
+            <div class="w-5 h-5 rounded-full border border-gray-400 mr-3 flex items-center justify-center text-[10px] font-bold shrink-0 transition group-hover:border-[var(--accent)] ${userAnswers[idx]===i?'bg-[var(--accent)] border-[var(--accent)] text-white':''}">${String.fromCharCode(65+i)}</div>
+            <div class="text-sm">${opt}</div>
+        </div>`).join('')}</div>`;
+}
+
+function renderInput(q,idx){
+    return `<input type="text" class="input-field" placeholder="${q.placeholder}" onchange="inputAnswer(${idx},this.value)">`;
+}
+
+function renderGroup(q, idx) {
+    return `<div class="flex flex-col gap-2 mt-2">
+        ${q.options.map((opt, i) => `
+            <div class="tf-row">
+                <div class="text-sm flex-1 mr-4"><span class="font-bold mr-2">${String.fromCharCode(97+i)})</span>${opt}</div>
+                <div class="flex gap-2 shrink-0">
+                    <button class="tf-btn" id="tf-${idx}-${i}-true" onclick="selectTF(${idx}, ${i}, true)">Đúng</button>
+                    <button class="tf-btn" id="tf-${idx}-${i}-false" onclick="selectTF(${idx}, ${i}, false)">Sai</button>
+                </div>
             </div>
-        </div>`;
-    });
-    html += `</div>`;
-    $('#content-area').innerHTML = html;
-};
+        `).join('')}
+    </div>`;
+}
 
-const selectAns = (qi, oi, el) => {
-    STATE.answers[qi] = oi;
-    const parent = el.parentElement;
-    Array.from(parent.children).forEach(child => child.classList.remove('selected'));
+function renderPalette(){
+    $('palette').innerHTML = currentExam.questions.map((_,idx)=>`<div class="q-cell" id="cell-${idx}" onclick="scrollToQuestion(${idx})">${idx+1}</div>`).join('');
+}
+
+function updateStatus(qIdx) {
+    const cell = $(`cell-${qIdx}`);
+    // Logic: Nếu đã có câu trả lời (dù đúng hay sai, đủ hay thiếu) thì tô xanh
+    if (userAnswers[qIdx] !== undefined && userAnswers[qIdx] !== null && userAnswers[qIdx] !== "") {
+        cell.classList.add('answered');
+    } else {
+        cell.classList.remove('answered');
+    }
+}
+
+function selectAnswer(qIdx, optIdx, el){
+    if(currentMode === 'exam' && userAnswers[qIdx] !== undefined) {
+        const parent = el.parentElement;
+        Array.from(parent.children).forEach(c => {
+            c.classList.remove('selected');
+            c.querySelector('div:first-child').className='w-5 h-5 rounded-full border border-gray-400 mr-3 flex items-center justify-center text-[10px] font-bold shrink-0 transition group-hover:border-[var(--accent)]';
+        });
+    }
+    userAnswers[qIdx] = optIdx;
     el.classList.add('selected');
-    updateProgress();
-};
-
-const updateProgress = () => {
-    const done = Object.keys(STATE.answers).length;
-    const total = STATE.exam.questions.length;
-    $('#progress-bar').style.width = `${(done/total)*100}%`;
-};
-
-const startTimer = () => {
-    if (STATE.timer) clearInterval(STATE.timer);
-    STATE.timer = setInterval(() => {
-        STATE.time--;
-        const m = Math.floor(STATE.time / 60);
-        const s = STATE.time % 60;
-        $('#timer').innerText = `${m}:${s < 10 ? '0' + s : s}`;
-        if (STATE.time <= 0) submitExam();
-    }, 1000);
-};
-
-const submitExam = () => {
-    clearInterval(STATE.timer);
-    let score = 0;
-    STATE.exam.questions.forEach((q, i) => {
-        const isCorrect = STATE.answers[i] === q.correct;
-        if (isCorrect) score++;
-        const box = $(`#q-box-${i}`);
-        box.style.borderColor = isCorrect ? 'var(--success)' : 'var(--danger)';
-        
-        // Hiện giải thích nếu không phải bản free
-        if(STATE.tier !== 'free') {
-            const expl = document.createElement('div');
-            expl.className = "mt-4 p-4 bg-gray-50 rounded-xl text-sm italic";
-            expl.innerHTML = `<b>Giải thích:</b> ${q.explanation}`;
-            box.appendChild(expl);
-        }
-    });
-    alert(`Hoàn thành! Điểm của bạn: ${score}/${STATE.exam.questions.length}`);
-};
-
-const showToast = (m) => {
-    const t = $('#toast-box');
-    t.innerText = m;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 3000);
-};
-
-const toggleDarkMode = () => document.documentElement.classList.toggle('dark');
-const toggleFocusMode = () => document.body.classList.toggle('focus-mode');
-const resetApp = () => { if(confirm('Xóa dữ liệu và làm lại từ đầu?')) { localStorage.clear(); location.reload(); } };
-
-// --- INITIALIZE ---
-window.onload = () => {
-    try {
-        const saved = localStorage.getItem('iqo_tier');
-        if (saved) STATE.tier = atob(saved);
-    } catch(e) {}
+    el.querySelector('div:first-child').className='w-5 h-5 rounded-full border border-[var(--accent)] bg-[var(--accent)] text-white mr-3 flex items-center justify-center text-[10px] font-bold shrink-0';
     
-    if (STATE.tier === 'free') {
-        $('#key-modal').classList.remove('hidden');
-    }
-    updateUI();
-};
+    updateStatus(qIdx);
+    if(currentMode === 'practice') checkAnswer(qIdx);
+}
 
-document.addEventListener("visibilitychange", () => {
-    if (document.hidden && STATE.exam) {
-        STATE.cheatCount++;
-        $('#cheating-warning').innerText = `⚠️ CẢNH BÁO (${STATE.cheatCount})`;
-        $('#cheating-warning').classList.remove('hidden');
+function inputAnswer(qIdx, val){
+    if(val.trim()){
+        userAnswers[qIdx] = val; 
+        updateStatus(qIdx);
+        if(currentMode === 'practice') checkAnswer(qIdx);
+    } else {
+        delete userAnswers[qIdx]; 
+        updateStatus(qIdx);
     }
-});
+}
+
+function selectTF(qIdx, itemIdx, value) {
+    if (!userAnswers[qIdx]) userAnswers[qIdx] = [null, null, null, null];
+    userAnswers[qIdx][itemIdx] = value;
+    
+    $(`tf-${qIdx}-${itemIdx}-true`).className = `tf-btn ${value ? 'active-true' : ''}`;
+    $(`tf-${qIdx}-${itemIdx}-false`).className = `tf-btn ${!value ? 'active-false' : ''}`;
+    
+    // Chỉ tô xanh map khi chọn đủ 4 ý
+    if (userAnswers[qIdx].every(v => v !== null)) {
+        $(`cell-${qIdx}`).classList.add('answered');
+        if(currentMode === 'practice') checkAnswer(qIdx);
+    }
+}
+
+function checkAnswer(qIdx){
+    const q = currentExam.questions[qIdx];
+    const feedback = $(`feedback-${qIdx}`);
+    feedback.classList.remove('hidden');
+    let isCorrect = false;
+
+    if(q.type === 'choice'){
+        isCorrect = userAnswers[qIdx] === q.correct;
+        const correctEl = $(`opt-${qIdx}-${q.correct}`);
+        const selectedEl = $(`opt-${qIdx}-${userAnswers[qIdx]}`);
+        if(correctEl) correctEl.classList.add('correct');
+        if(!isCorrect && selectedEl) selectedEl.classList.add('wrong');
+        feedback.innerHTML = isCorrect ? `<span class="text-green-600 font-bold">✓ Chính xác!</span>` : `<span class="text-red-600 font-bold">✗ Sai rồi.</span> Đáp án: ${String.fromCharCode(65+q.correct)}`;
+    } 
+    else if (q.type === 'group') {
+        let correctCount = 0;
+        q.correct.forEach((ans, i) => {
+            const userAns = userAnswers[qIdx] ? userAnswers[qIdx][i] : null;
+            const btnTrue = $(`tf-${qIdx}-${i}-true`);
+            const btnFalse = $(`tf-${qIdx}-${i}-false`);
+            btnTrue.classList.remove('correct', 'wrong');
+            btnFalse.classList.remove('correct', 'wrong');
+            if (ans === true) btnTrue.classList.add('correct');
+            else btnFalse.classList.add('correct');
+            if (userAns !== null && userAns !== ans) {
+                if (userAns === true) btnTrue.classList.add('wrong');
+                else btnFalse.classList.add('wrong');
+            }
+            if (userAns === ans) correctCount++;
+        });
+        isCorrect = correctCount === 4;
+        feedback.innerHTML = `Bạn đúng ${correctCount}/4 ý.`;
+    }
+    else {
+        isCorrect = userAnswers[qIdx] == q.correct;
+        feedback.innerHTML = isCorrect ? `<span class="text-green-600 font-bold">✓ Chính xác!</span>` : `<span class="text-red-600 font-bold">✗ Sai rồi.</span> Đáp án: ${q.correct}`;
+    }
+
+    const cell = $(`cell-${qIdx}`);
+    cell.classList.remove('answered');
+    cell.classList.add(isCorrect ? 'correct' : 'wrong');
+}
+
+function submitExam(){
+    if(confirm('Nộp bài ngay?')){
+        clearInterval(timerInterval);
+        let score = 0;
+        currentExam.questions.forEach((q, idx) => {
+            let isCorrect = false;
+            if(q.type === 'choice') isCorrect = userAnswers[idx] === q.correct;
+            else if (q.type === 'group') {
+                if (userAnswers[idx] && userAnswers[idx].every((v, i) => v === q.correct[i])) isCorrect = true;
+            }
+            else isCorrect = userAnswers[idx] == q.correct;
+            
+            if(isCorrect) score++;
+            
+            const cell = $(`cell-${idx}`);
+            cell.classList.remove('answered');
+            if(userAnswers[idx] === undefined) cell.style.background = '#e5e5ea';
+            else cell.classList.add(isCorrect ? 'correct' : 'wrong');
+            
+            checkAnswer(idx);
+        });
+        
+        alert(`Kết quả: ${score}/${currentExam.questions.length} câu đúng hoàn toàn.`);
+        $('submit-btn').style.display = 'none';
+    }
+}
+
+function toggleFlag(idx){
+    if(flaggedQuestions.has(idx)){
+        flaggedQuestions.delete(idx);
+        $('flag-btn-'+idx).classList.remove('text-yellow-500','opacity-100');
+        $('flag-btn-'+idx).querySelector('svg').setAttribute('fill', 'none');
+        $('cell-'+idx).classList.remove('flagged');
+    }else{
+        flaggedQuestions.add(idx);
+        $('flag-btn-'+idx).classList.add('text-yellow-500','opacity-100');
+        $('flag-btn-'+idx).querySelector('svg').setAttribute('fill', 'currentColor');
+        $('cell-'+idx).classList.add('flagged');
+    }
+}
+
+function scrollToQuestion(idx){
+    $('q-'+idx).scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function startTimer(sec){
+    clearInterval(timerInterval);
+    const d=$('timer');
+    timerInterval=setInterval(()=>{
+        const m=Math.floor(sec/60), s=sec%60;
+        d.innerText=`${m<10?'0'+m:m}:${s<10?'0'+s:s}`;
+        if(sec<=300) d.classList.add('text-red-500');
+        if(sec===0){clearInterval(timerInterval); submitExam();}
+        sec--;
+    },1000);
+}
+
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+init();
 </script>
 </body>
 </html>
